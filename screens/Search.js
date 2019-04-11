@@ -1,0 +1,52 @@
+import React from 'react';
+import { Text, 
+    View, 
+    ImageBackground, 
+    StyleSheet, 
+    TouchableHighlight, 
+    TouchableOpacity, 
+    Image } from 'react-native';
+ 
+export default class Search extends React.Component {
+    render() {
+      return (
+            <ImageBackground source={require('../assets/Ui.png')} style={styles.container} >
+              <View style={styles.views}>
+                <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('barcodeScanner')}>
+                <View style= {styles.views}>
+                <Image source={require('../assets/ass/barcode.png')}
+                      style={{aspectRatio: 0.7, resizeMode: 'contain'}}
+                />
+                    <Text style={{ fontSize: 25 }}>Scanner le code-barres</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.views}>
+                <TouchableHighlight onPress={() => this.props.navigation.navigate('Profile')}>
+                <View style= {styles.views}>
+                  <Text style={{ fontSize: 25, color: '#fff' }}>Rechercher par nom</Text>
+                  <Image source={require('../assets/ass/searchbar.png')}
+                        style={{aspectRatio: 2, resizeMode: 'contain'}}
+                  />
+                </View>
+                </TouchableHighlight>
+              </View> 
+            </ImageBackground>
+      )
+    }
+  }
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  views: {
+    // backgroundColor: '#DDDDDD',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 3,
+  }
+});
