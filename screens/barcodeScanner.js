@@ -31,11 +31,11 @@ export default class barcodeScanner extends React.Component {
           );
         }
     handleBarCodeScanned = async ({ type, data }) => {
-        this.props.navigation.navigate('Profile',{
-            type: type,
-            data: data
-        });
-        //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+        // this.props.navigation.navigate('Profile',{
+        //     type: type,
+        //     data: data
+        // });
+        alert(`Bar code with type ${type} and data ${data} has been scanned!`);
         }
     }
   

@@ -10,6 +10,7 @@ import Profile from '../screens/Profile'
 import Search from '../screens/Search'
 import Signup from '../screens/Signup'
 import barcodeScanner from '../screens/barcodeScanner'
+
 const AppStack = createStackNavigator(
     { 
         Search: Search, 
@@ -18,7 +19,7 @@ const AppStack = createStackNavigator(
         Addprice: Addprice
     },
     {
-        initialRouteName : 'Search',
+        initialRouteName : 'Addprice',
         headerMode: 'none'
     }
     );
