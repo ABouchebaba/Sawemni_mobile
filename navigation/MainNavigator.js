@@ -10,16 +10,17 @@ import Profile from '../screens/Profile'
 import Search from '../screens/Search'
 import Signup from '../screens/Signup'
 import barcodeScanner from '../screens/barcodeScanner'
-
+import priceAdded from '../screens/priceAdded'
 const AppStack = createStackNavigator(
     { 
         Search: Search, 
         barcodeScanner: barcodeScanner,
         Profile: Profile,
-        Addprice: Addprice
+        Addprice: Addprice,
+        priceAdded: priceAdded
     },
     {
-        initialRouteName : 'Addprice',
+        initialRouteName : 'priceAdded',
         headerMode: 'none'
     }
     );
@@ -37,6 +38,6 @@ const AuthStack = createStackNavigator(
 
 export default createAppContainer(createSwitchNavigator(
     {
-        App: AppStack,
-        Auth: AuthStack
+        Auth: AuthStack,
+        App: AppStack
     }))

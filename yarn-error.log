@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add native-base --save
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add eslint
 
 PATH: 
   C:\Users\Belka\Documents\cmd\bin;C:\Users\Belka\Documents\cmd\vendor\conemu-maximus5\ConEmu\Scripts;C:\Users\Belka\Documents\cmd\vendor\conemu-maximus5;C:\Users\Belka\Documents\cmd\vendor\conemu-maximus5\ConEmu;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\wamp64\bin\php\php7.1.9;C:\ProgramData\ComposerSetup\bin;C:\Program Files (x86)\Yarn\bin\;C:\ProgramData\chocolatey\bin;C:\oracle\instantclient_12_2;C:\Users\Belka\Documents\platform-tools;C:\oracle\instantclient_12_2;C:\Users\Belka\AppData\Roaming\npm;C:\Users\Belka\AppData\Roaming\Composer\vendor\bin;C:\Users\Belka\AppData\Local\Yarn\bin\;C:\Users\Belka\AppData\Local\Programs\Python\Python36\Scripts;;C:\Users\Belka\AppData\Local\now-cli;C:\Users\Belka\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Belka\Documents\platform-tools;;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\share\vim\vim74;C:\Users\Belka\Documents\cmd\
@@ -24,8 +24,10 @@ npm manifest:
     },
     "dependencies": {
       "expo": "^32.0.0",
+      "native-base": "^2.12.1",
       "react": "16.5.0",
       "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+      "react-native-responsive-screen": "^1.2.1",
       "react-navigation": "3.0.0-rc.5"
     },
     "devDependencies": {
@@ -898,7 +900,7 @@ Lockfile:
     version "3.0.0"
     resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
   
-  ansi-styles@^2.2.1:
+  ansi-styles@^2.1.0, ansi-styles@^2.2.1:
     version "2.2.1"
     resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
   
@@ -1498,6 +1500,10 @@ Lockfile:
     version "5.2.2"
     resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
   
+  blueimp-md5@^2.5.0:
+    version "2.10.0"
+    resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.10.0.tgz#02f0843921f90dca14f5b8920a38593201d6964d"
+  
   bplist-creator@0.0.7:
     version "0.0.7"
     resolved "https://registry.yarnpkg.com/bplist-creator/-/bplist-creator-0.0.7.tgz#37df1536092824b87c42f957b01344117372ae45"
@@ -1621,6 +1627,16 @@ Lockfile:
     dependencies:
       rsvp "^3.3.3"
   
+  chalk@1.1.1:
+    version "1.1.1"
+    resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.1.tgz#509afb67066e7499f7eb3535c77445772ae2d019"
+    dependencies:
+      ansi-styles "^2.1.0"
+      escape-string-regexp "^1.0.2"
+      has-ansi "^2.0.0"
+      strip-ansi "^3.0.0"
+      supports-color "^2.0.0"
+  
   chalk@^1.1.1, chalk@^1.1.3:
     version "1.1.3"
     resolved "https://registry.yarnpkg.com/chalk/-/chalk-1.1.3.tgz#a8115c55e4a702fe4d150abd3872822a7e09fc98"
@@ -1646,6 +1662,10 @@ Lockfile:
   chownr@^1.1.1:
     version "1.1.1"
     resolved "https://registry.yarnpkg.com/chownr/-/chownr-1.1.1.tgz#54726b8b8fff4df053c42187e801fb4412df1494"
+  
+  clamp@^1.0.1:
+    version "1.0.1"
+    resolved "https://registry.yarnpkg.com/clamp/-/clamp-1.0.1.tgz#66a0e64011816e37196828fdc8c8c147312c8634"
   
   class-utils@^0.3.5:
     version "0.3.6"
@@ -1685,7 +1705,7 @@ Lockfile:
       map-visit "^1.0.0"
       object-visit "^1.0.0"
   
-  color-convert@^1.9.0, color-convert@^1.9.1:
+  color-convert@^1.8.2, color-convert@^1.9.0, color-convert@^1.9.1:
     version "1.9.3"
     resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
     dependencies:
@@ -1699,7 +1719,7 @@ Lockfile:
     version "1.1.4"
     resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   
-  color-string@^1.5.2:
+  color-string@^1.4.0, color-string@^1.5.2:
     version "1.5.3"
     resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.5.3.tgz#c9bbc5f01b58b5492f3d6857459cb6590ce204cc"
     dependencies:
@@ -1716,6 +1736,13 @@ Lockfile:
     dependencies:
       color-convert "^1.9.1"
       color-string "^1.5.2"
+  
+  color@~1.0.3:
+    version "1.0.3"
+    resolved "https://registry.yarnpkg.com/color/-/color-1.0.3.tgz#e48e832d85f14ef694fb468811c2d5cfe729b55d"
+    dependencies:
+      color-convert "^1.8.2"
+      color-string "^1.4.0"
   
   commander@^2.9.0:
     version "2.20.0"
@@ -2583,6 +2610,13 @@ Lockfile:
       jsonfile "^2.1.0"
       klaw "^1.0.0"
   
+  fs-extra@^2.0.0:
+    version "2.1.2"
+    resolved "https://registry.yarnpkg.com/fs-extra/-/fs-extra-2.1.2.tgz#046c70163cef9aad46b0e4a7fa467fb22d71de35"
+    dependencies:
+      graceful-fs "^4.1.2"
+      jsonfile "^2.1.0"
+  
   fs-minipass@^1.2.5:
     version "1.2.5"
     resolved "https://registry.yarnpkg.com/fs-minipass/-/fs-minipass-1.2.5.tgz#06c277218454ec288df77ada54a03b8702aacb9d"
@@ -2726,6 +2760,10 @@ Lockfile:
     dependencies:
       is-number "^3.0.0"
       kind-of "^4.0.0"
+  
+  hoist-non-react-statics@^1.0.5:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-1.2.0.tgz#aa448cf0986d55cc40773b17174b7dd066cb7cfb"
   
   hoist-non-react-statics@^2.3.1, hoist-non-react-statics@^2.5.0:
     version "2.5.5"
@@ -3028,6 +3066,10 @@ Lockfile:
       micromatch "^2.3.11"
       sane "^2.0.0"
   
+  jest-react-native@^18.0.0:
+    version "18.0.0"
+    resolved "https://registry.yarnpkg.com/jest-react-native/-/jest-react-native-18.0.0.tgz#77dd909f069324599f227c58c61c2e62168726ba"
+  
   jest-serializer@23.0.1, jest-serializer@^23.0.1:
     version "23.0.1"
     resolved "https://registry.yarnpkg.com/jest-serializer/-/jest-serializer-23.0.1.tgz#a3776aeb311e90fe83fab9e533e85102bd164165"
@@ -3216,7 +3258,7 @@ Lockfile:
     version "4.1.3"
     resolved "https://registry.yarnpkg.com/lodash.zipobject/-/lodash.zipobject-4.1.3.tgz#b399f5aba8ff62a746f6979bf20b214f964dbef8"
   
-  lodash@^4.0.0, lodash@^4.16.6, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1:
+  lodash@4.17.11, lodash@^4.0.0, lodash@^4.16.6, lodash@^4.17.11, lodash@^4.17.4, lodash@^4.17.5, lodash@^4.3.0, lodash@^4.6.1:
     version "4.17.11"
     resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   
@@ -3684,6 +3726,35 @@ Lockfile:
       snapdragon "^0.8.1"
       to-regex "^3.0.1"
   
+  native-base-shoutem-theme@0.2.3:
+    version "0.2.3"
+    resolved "https://registry.yarnpkg.com/native-base-shoutem-theme/-/native-base-shoutem-theme-0.2.3.tgz#4ec27c663f0aa78be36fca239e490db1811ad617"
+    dependencies:
+      hoist-non-react-statics "^1.0.5"
+      lodash "4.17.11"
+      prop-types "^15.5.10"
+  
+  native-base@^2.12.1:
+    version "2.12.1"
+    resolved "https://registry.yarnpkg.com/native-base/-/native-base-2.12.1.tgz#0ce367076fd5694f92abab6e0a69a84dc5dfa800"
+    dependencies:
+      blueimp-md5 "^2.5.0"
+      clamp "^1.0.1"
+      color "~1.0.3"
+      fs-extra "^2.0.0"
+      jest-react-native "^18.0.0"
+      lodash "4.17.11"
+      native-base-shoutem-theme "0.2.3"
+      print-message "^2.1.0"
+      prop-types "^15.5.10"
+      react-native-drawer "2.5.1"
+      react-native-easy-grid "0.2.1"
+      react-native-keyboard-aware-scroll-view "0.8.0"
+      react-native-vector-icons "6.1.0"
+      react-timer-mixin "^0.13.4"
+      react-tween-state "^0.1.5"
+      tween-functions "^1.0.1"
+  
   needle@^2.2.1:
     version "2.2.4"
     resolved "https://registry.yarnpkg.com/needle/-/needle-2.2.4.tgz#51931bff82533b1928b7d1d69e01f1b00ffd2a4e"
@@ -4013,6 +4084,10 @@ Lockfile:
     version "0.10.0"
     resolved "https://registry.yarnpkg.com/pegjs/-/pegjs-0.10.0.tgz#cf8bafae6eddff4b5a7efb185269eaaf4610ddbd"
   
+  performance-now@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+  
   pify@^2.0.0:
     version "2.3.0"
     resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -4088,6 +4163,12 @@ Lockfile:
     version "4.3.1"
     resolved "https://registry.yarnpkg.com/pretty-format/-/pretty-format-4.3.1.tgz#530be5c42b3c05b36414a7a2a4337aa80acd0e8d"
   
+  print-message@^2.1.0:
+    version "2.1.0"
+    resolved "https://registry.yarnpkg.com/print-message/-/print-message-2.1.0.tgz#b5588ed08b0e1bf77ac7bcb5cb78004afaf9a891"
+    dependencies:
+      chalk "1.1.1"
+  
   private@^0.1.6, private@^0.1.8:
     version "0.1.8"
     resolved "https://registry.yarnpkg.com/private/-/private-0.1.8.tgz#2381edb3689f7a53d653190060fcf822d2f368ff"
@@ -4133,6 +4214,12 @@ Lockfile:
       decode-uri-component "^0.2.0"
       split-on-first "^1.0.0"
       strict-uri-encode "^2.0.0"
+  
+  raf@^3.1.0:
+    version "3.4.1"
+    resolved "https://registry.yarnpkg.com/raf/-/raf-3.4.1.tgz#0742e99a4a6552f445d73e3ee0328af0ff1ede39"
+    dependencies:
+      performance-now "^2.1.0"
   
   randomatic@^3.0.0:
     version "3.1.1"
@@ -4182,6 +4269,19 @@ Lockfile:
     version "2.2.5"
     resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   
+  react-native-drawer@2.5.1:
+    version "2.5.1"
+    resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"
+    dependencies:
+      prop-types "^15.5.8"
+      tween-functions "^1.0.1"
+  
+  react-native-easy-grid@0.2.1:
+    version "0.2.1"
+    resolved "https://registry.yarnpkg.com/react-native-easy-grid/-/react-native-easy-grid-0.2.1.tgz#23e386db0e4d0d46d7da30f7b628e28cd354d5ad"
+    dependencies:
+      lodash "4.17.11"
+  
   react-native-gesture-handler@~1.0.14:
     version "1.0.17"
     resolved "https://registry.yarnpkg.com/react-native-gesture-handler/-/react-native-gesture-handler-1.0.17.tgz#a046f371f277092157fc2781323d35a02a93daaf"
@@ -4190,6 +4290,17 @@ Lockfile:
       invariant "^2.2.2"
       prop-types "^15.5.10"
   
+  react-native-iphone-x-helper@^1.0.3:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.0.tgz#9f8a376eb00bc712115abff4420318a0063fa796"
+  
+  react-native-keyboard-aware-scroll-view@0.8.0:
+    version "0.8.0"
+    resolved "https://registry.yarnpkg.com/react-native-keyboard-aware-scroll-view/-/react-native-keyboard-aware-scroll-view-0.8.0.tgz#00bcaa38c91323913bb7a733059ad2bc4875f88c"
+    dependencies:
+      prop-types "^15.6.2"
+      react-native-iphone-x-helper "^1.0.3"
+  
   react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
     version "0.22.1"
     resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
@@ -4197,6 +4308,10 @@ Lockfile:
   react-native-reanimated@1.0.0-alpha.11:
     version "1.0.0-alpha.11"
     resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.0.0-alpha.11.tgz#b78c839bae878d149561b56a3c750414957ea86d"
+  
+  react-native-responsive-screen@^1.2.1:
+    version "1.2.1"
+    resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.2.1.tgz#fa9b74a3bb76856bc2f3754af1ba267893e98595"
   
   react-native-safe-area-view@^0.11.0:
     version "0.11.0"
@@ -4231,6 +4346,14 @@ Lockfile:
   react-native-vector-icons@6.0.0:
     version "6.0.0"
     resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.0.0.tgz#3a7076dbe244ea94c6d5e92802a870e64a4283c5"
+    dependencies:
+      lodash "^4.0.0"
+      prop-types "^15.6.2"
+      yargs "^8.0.2"
+  
+  react-native-vector-icons@6.1.0:
+    version "6.1.0"
+    resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.1.0.tgz#770a3f8ced692d75deb3afbb9829195ceed1eedd"
     dependencies:
       lodash "^4.0.0"
       prop-types "^15.6.2"
@@ -4332,7 +4455,7 @@ Lockfile:
       lodash "^4.6.1"
       react-deep-force-update "^1.0.0"
   
-  react-timer-mixin@^0.13.2:
+  react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.4:
     version "0.13.4"
     resolved "https://registry.yarnpkg.com/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz#75a00c3c94c13abe29b43d63b4c65a88fc8264d3"
   
@@ -4342,6 +4465,13 @@ Lockfile:
     dependencies:
       global "^4.3.0"
       react-proxy "^1.1.7"
+  
+  react-tween-state@^0.1.5:
+    version "0.1.5"
+    resolved "https://registry.yarnpkg.com/react-tween-state/-/react-tween-state-0.1.5.tgz#e98b066551efb93cb92dd1be14995c2e3deae339"
+    dependencies:
+      raf "^3.1.0"
+      tween-functions "^1.0.1"
   
   react@16.5.0:
     version "16.5.0"
@@ -4971,6 +5101,10 @@ Lockfile:
     version "1.0.1"
     resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
   
+  tween-functions@^1.0.1:
+    version "1.2.0"
+    resolved "https://registry.yarnpkg.com/tween-functions/-/tween-functions-1.2.0.tgz#1ae3a50e7c60bb3def774eac707acbca73bbc3ff"
+  
   type-fest@^0.3.0:
     version "0.3.0"
     resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-0.3.0.tgz#1eb4a83c4ee233afd59d4db3faef44fecee0e9a2"
@@ -5266,9 +5400,12 @@ Lockfile:
       yargs-parser "^7.0.0"
 
 Trace: 
-  Error: unable to verify the first certificate
-      at TLSSocket.<anonymous> (_tls_wrap.js:1104:38)
-      at emitNone (events.js:105:13)
-      at TLSSocket.emit (events.js:207:7)
-      at TLSSocket._finishInit (_tls_wrap.js:638:8)
-      at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:468:38)
+  Error: Found incompatible module
+      at new MessageError (C:\Program Files (x86)\Yarn\lib\cli.js:186:110)
+      at checkOne (C:\Program Files (x86)\Yarn\lib\cli.js:62444:11)
+      at Object.check (C:\Program Files (x86)\Yarn\lib\cli.js:62463:5)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:22803:73
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:98:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:109:13
+      at <anonymous>

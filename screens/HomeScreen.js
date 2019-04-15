@@ -1,12 +1,46 @@
 import React from 'react';
-import { Text, View } from 'react-native';
- 
+import  { Image, 
+          View, 
+          ImageBackground, 
+          StyleSheet,  
+          TouchableOpacity } from 'react-native'; 
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
 export default class HomeScreen extends React.Component {
     render() {
       return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>s'identifier! s'inscrire</Text>
-        </View>
+        <ImageBackground source={require('../assets/backgrounds/Auth.png')} style={styles.container} >
+              <View style={{height:'50%'}} />
+              <View style={{height: '50%', justifyContent: 'flex-start', alignItems: 'center'}}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("Signup")}>
+                  <Image source={require('../assets/ass/signin.png')} style={{height: hp('15%'), resizeMode:'contain'}} />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("Signup")}>
+                  <Image source={require('../assets/ass/signup.png')} style={{height: hp('15%'), resizeMode:'contain'}} />
+                </TouchableOpacity>
+              </View>
+        </ImageBackground>
       );
     }
   }
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    addButton: {
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 30,
+      borderTopWidth: 0,
+      elevation: 8,
+      shadowOffset: { width: 5, height: 5 },
+      shadowColor: "grey",
+      shadowOpacity: 0.5,
+      shadowRadius: 10,
+      borderColor: "transparent",
+      overflow: "hidden",
+      paddingBottom: "5%",
+      paddingBottom: "5%"
+      //overflow: 'visible'
+    }
+  });
