@@ -90,7 +90,8 @@ export default class Addprice extends React.Component {
                   <TouchableOpacity onPress={() => this.IncrementItem(0)}>
                     <Image source={require('../assets/price/0.png')} style={styles.number}/>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => alert(this.state.price)} disabled={this.state.price == 0}>
+                  <TouchableOpacity 
+                  onPress={() => this.props.navigation.navigate('priceAdded')} disabled={this.state.price == 0}>
                     <Image source={require('../assets/price/ok.png')} style={styles.number}/>
                     </TouchableOpacity>   
               </View>

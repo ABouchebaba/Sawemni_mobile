@@ -12,7 +12,7 @@ export default class HomeScreen extends React.Component {
         <ImageBackground source={require('../assets/backgrounds/Auth.png')} style={styles.container} >
               <View style={{height:'50%'}} />
               <View style={{height: '50%', justifyContent: 'flex-start', alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("Signup")}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate("Signin")}>
                   <Image source={require('../assets/ass/signin.png')} style={{height: hp('15%'), resizeMode:'contain'}} />
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.props.navigation.navigate("Signup")}>

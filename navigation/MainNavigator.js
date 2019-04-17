@@ -9,8 +9,10 @@ import HomeScreen from '../screens/HomeScreen'
 import Profile from '../screens/Profile'
 import Search from '../screens/Search'
 import Signup from '../screens/Signup'
+import Signin from '../screens/Signin'
 import barcodeScanner from '../screens/barcodeScanner'
 import priceAdded from '../screens/priceAdded'
+
 const AppStack = createStackNavigator(
     { 
         Search: Search, 
@@ -27,11 +29,12 @@ const AppStack = createStackNavigator(
 
 const AuthStack = createStackNavigator(
     { 
+        Signin: Signin,
         Signup: Signup,
         HomeScreen: HomeScreen
     },
     {
-        initialRouteName : 'HomeScreen',
+        initialRouteName : 'Signup',
         headerMode: 'none'
     }
     );
