@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
-
+import  axios  from "axios";
 export default class barcodeScanner extends React.Component {
 
     state = {
@@ -30,19 +30,16 @@ export default class barcodeScanner extends React.Component {
             </View>
           );
         }
-      handleBarCodeScanned = async ({ type, data }) => {
-        axios.get("http://192.168.43.19:19000/Sawemni_api/products/")
-          .then(res => {
-            alert(res.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-        /*this.props.navigation.navigate('Profile', {
-          type: type,
-          data: data
-        });*/
-        //alert(Bar code with type ${type} and data ${data} has been scanned!);
-      }
-    }
+        handleBarCodeScanned = ({ type, data }) => {
+          //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
+            axios.get(`http://192.168.43.122/Sawemni/Sawemni_api/products/`)
+            .then(res => {
+              alert(res.data)
+            })
+            .catch(err => {
+              console.log(err);
+            });
+        
+}
+}
   

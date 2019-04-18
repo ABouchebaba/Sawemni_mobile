@@ -22,7 +22,7 @@ const AppStack = createStackNavigator(
         priceAdded: priceAdded
     },
     {
-        initialRouteName : 'priceAdded',
+        initialRouteName : 'barcodeScanner',
         headerMode: 'none'
     }
     );
@@ -34,7 +34,7 @@ const AuthStack = createStackNavigator(
         HomeScreen: HomeScreen
     },
     {
-        initialRouteName : 'Signup',
+        initialRouteName : 'HomeScreen',
         headerMode: 'none'
     }
     );
@@ -42,5 +42,5 @@ const AuthStack = createStackNavigator(
 export default createAppContainer(createSwitchNavigator(
     {
         Auth: AuthStack,
-        App: AppStack
+        App: AppStack,
     }))
