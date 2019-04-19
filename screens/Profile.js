@@ -15,6 +15,7 @@ export default class Profile extends React.Component {
     const { navigation } = this.props;
     const type = navigation.getParam("type", "walou");
     const data = navigation.getParam("data", "walou2");
+    const product = data.product;
     return (
       <ImageBackground
         source={require("../assets/backgrounds/profile.png")}
@@ -37,7 +38,9 @@ export default class Profile extends React.Component {
             }}
           >
             <Image
-              source={require("../assets/ass/kitkat.jpg")}
+              //require("../assets/ass/kitkat.jpg")
+
+              source={{ uri: "http://6fb8b181.ngrok.io/Sawemni_api/" + product.imgURL }}
               style={styles.image}
             />
           </View>
@@ -50,8 +53,8 @@ export default class Profile extends React.Component {
             }}
           >
             <Text style={{ fontSize: 30, color: "white" }}>
-              {" "}
-              Kit Kat (4 barres)
+              {product.PName}
+
             </Text>
           </View>
           <View
@@ -69,9 +72,9 @@ export default class Profile extends React.Component {
                 justifyContent: "space-around"
               }}
             >
-              <Text style={styles.text2}>Chocolat</Text>
-              <Text style={styles.text2}>Nestlé</Text>
-              <Text style={styles.text2}>Code-Barres</Text>
+              <Text style={styles.text2}>{product.category}</Text>
+              <Text style={styles.text2}>{product.producer}</Text>
+              <Text style={styles.text2}>{product.barcode}</Text>
             </View>
             <View
               style={{
@@ -89,7 +92,7 @@ export default class Profile extends React.Component {
                 <Text style={{ fontSize: 15, color: "white" }}>
                   Prix moins chère
                 </Text>
-                <Text style={{ fontSize: 23, color: "white" }}>125.00 DA</Text>
+                <Text style={{ fontSize: 23, color: "white" }}>{product.LowestPrice}.00 DA</Text>
               </LinearGradient>
               <View
                 style={{
@@ -105,7 +108,7 @@ export default class Profile extends React.Component {
                   Prix conseillé
                 </Text>
                 <Text style={{ fontSize: 20, color: "#ff4c3d" }}>
-                  135.00 DA
+                  {product.RefPrice}.00 DA
                 </Text>
               </View>
             </View>
@@ -122,9 +125,7 @@ export default class Profile extends React.Component {
           >
             <View style={{ height: "50%" }}>
               <Text style={{ fontSize: 13, color: "#fff", opacity: 0.4 }}>
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed
-                diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-                aliquam
+                {product.description}
               </Text>
             </View>
             <View
@@ -182,8 +183,10 @@ const styles = StyleSheet.create({
     color: "white"
   },
   image: {
-    resizeMode: "center",
-    aspectRatio: 1 / 2,
+    width: '50%',
+    height: 150,
+    resizeMode: "cover",
+    //aspectRatio: 1 / 2,
     borderRadius: 20
   },
   button1: {

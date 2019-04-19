@@ -1,45 +1,66 @@
 import React from 'react';
 import { StyleSheet, Button, View, Text } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
-import  axios  from "axios";
+import axios from "axios";
+import Spinner from 'react-native-loading-spinner-overlay';
+
+
 export default class barcodeScanner extends React.Component {
 
-    state = {
-        hasCameraPermission: null,
-      }
-    
-      async componentDidMount() {
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasCameraPermission: status === 'granted' });
-        }    
+  state = {
+    hasCameraPermission: null,
+    spinner: false
+  }
 
-    render() {
-        const { hasCameraPermission } = this.state;
-        if (hasCameraPermission === null) {
-            return <Text>a</Text>;
-          }
-          if (hasCameraPermission === false) {
-            return <Text>No access to camera</Text>;
-          }
-          return (
-            <View style={{ flex: 1 }}>
-              <BarCodeScanner
-                onBarCodeScanned={this.handleBarCodeScanned}
-                style={StyleSheet.absoluteFill}
-              />
-            </View>
-          );
-        }
-        handleBarCodeScanned = ({ type, data }) => {
-          //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-            axios.get(`http://192.168.43.122/Sawemni/Sawemni_api/products/`)
-            .then(res => {
-              alert(res.data)
-            })
-            .catch(err => {
-              console.log(err);
-            });
-        
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
+
+
+  render() {
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <Text>a</Text>;
+    }
+    if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+        <Spinner
+          visible={this.state.spinner}
+          textContent={'Recherche...'}
+        />
+        <BarCodeScanner
+          onBarCodeScanned={this.handleBarCodeScanned}
+          style={StyleSheet.absoluteFill}
+        />
+      </View>
+    );
+
+
+  }
+
+  handleBarCodeScanned = ({ type, data }) => {
+
+    this.setState({ spinner: true });
+    //scan.off;
+    axios.get(`http://6fb8b181.ngrok.io/Sawemni_api/products/barcode/${data}`)
+      .then(res => {
+        //console.log(res.data)
+        this.setState({ spinner: false });
+        console.log(res.data.product.imgURL)
+        this.props.navigation.navigate('Profile', { type: type, data: res.data });
+
+      })
+      .catch(err => {
+        alert("error")
+        console.log(err);
+      });
+
+  }
+
+
 }
-}
-  
