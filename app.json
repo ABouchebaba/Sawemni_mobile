@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "sawem_app",
-    "slug": "Sawem_App",
+    "name": "Sawemeni",
+    "slug": "Sawemeni",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -17,13 +17,28 @@
       "backgroundColor": "#ff4c3d"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "enabled": true,
+      "fallbackToCacheTimeout": 3000,
+      "checkAutomatically": "ON_LOAD"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "com.sawemeni.sawemeni",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "facebookScheme": "fb1082525895266770",
+    "primaryColor": "##ff4c3d",
+    "facebookAppId": "1082525895266770",
+    "facebookDisplayName": "Sawemeni"
   }
 }

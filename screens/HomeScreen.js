@@ -3,10 +3,25 @@ import  { Image,
           View, 
           ImageBackground, 
           StyleSheet,  
-          TouchableOpacity } from 'react-native'; 
+          TouchableOpacity,
+          AsyncStorage } from 'react-native'; 
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { Facebook } from 'expo';
 
 export default class HomeScreen extends React.Component {
+
+    async componentWillMount(){
+      this.ifLoggedIn()
+    }
+
+    ifLoggedIn() {
+     if(AsyncStorage.getItem('userId')) {
+       this.state.navigation.push('Search')
+     }
+     else {
+       
+     }
+    }
     render() {
       return (
         <ImageBackground source={require('../assets/backgrounds/Auth.png')} style={styles.container} >

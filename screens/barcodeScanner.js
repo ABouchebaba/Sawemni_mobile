@@ -32,7 +32,7 @@ export default class barcodeScanner extends React.Component {
         }
         handleBarCodeScanned = ({ type, data }) => {
           //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
-            axios.get(`http://192.168.43.122/Sawemni/Sawemni_api/products/`)
+            axios.get(`http://192.168.137.189/Sawemni/Sawemni_api/products/`)
             .then(res => {
               alert(res.data)
             })
