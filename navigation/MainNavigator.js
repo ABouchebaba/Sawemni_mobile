@@ -24,7 +24,7 @@ const AppStack = createStackNavigator(
         priceAdded: priceAdded
     },
     {
-        initialRouteName : 'nameSearch',
+        initialRouteName : 'Search',
         headerMode: 'none'
     }
     );
