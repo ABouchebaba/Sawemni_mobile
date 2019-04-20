@@ -6,10 +6,16 @@ import {
   StyleSheet,
   TouchableHighlight,
   TouchableOpacity,
-  Image
+  Image,
+  AsyncStorage
 } from 'react-native';
 
 export default class Search extends React.Component {
+
+  componentDidMount = async () => {
+    let user = JSON.parse(await AsyncStorage.getItem("user"));
+    alert(user.fullName);
+  }
   render() {
     return (
       <ImageBackground source={require('../assets/Ui.png')} style={styles.container} >
