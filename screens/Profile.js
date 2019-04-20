@@ -13,8 +13,7 @@ import { LinearGradient } from "expo";
 export default class Profile extends React.Component {
   render() {
     const { navigation } = this.props;
-    const type = navigation.getParam("type", "walou");
-    const data = navigation.getParam("data", "walou2");
+    const data = navigation.getParam("data", {});
     const product = data.product;
     return (
       <ImageBackground

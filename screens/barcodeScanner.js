@@ -3,6 +3,7 @@ import { StyleSheet, Button, View, Text } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import axios from "axios";
 import Spinner from 'react-native-loading-spinner-overlay';
+import BACKEND_URL from "../consts";
 
 
 export default class barcodeScanner extends React.Component {
@@ -45,7 +46,7 @@ export default class barcodeScanner extends React.Component {
 
     this.setState({ spinner: true });
     //scan.off;
-    axios.get(`http://6fb8b181.ngrok.io/Sawemni_api/products/barcode/${data}`)
+    axios.get(BACKEND_URL + `products/barcode/${data}`)
       .then(res => {
         //console.log(res.data)
         this.setState({ spinner: false });
