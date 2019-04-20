@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, ImageBackground } from 'react-native';
 import axios from "axios";
+import { Searchbar } from 'react-native-paper';
 import BACKEND_URL from "../consts";
 
 export default class nameSearch extends Component {
@@ -14,22 +15,22 @@ export default class nameSearch extends Component {
     this.arrayholder = [];
   }
 
-  componentDidMount() {
-    return fetch(BACKEND_URL + 'products/')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        let ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
-        this.setState({
-          isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
-        }, function () {
-          // In this block you can do something with new state.
-          this.arrayholder = responseJson;
-        });
-      })
-      .catch((error) => {
-        console.error(error);
+  async componentDidMount() {
+    try {
+      const response = await fetch(BACKEND_URL + 'products/');
+      const responseJson = await response.json();
+      let ds = new ListView.DataSource({ rowHasChanged: (r1_1, r2) => r1_1 !== r2 });
+      this.setState({
+        isLoading: false,
+        dataSource: ds.cloneWithRows(responseJson),
+      }, function () {
+        // In this block you can do something with new state.
+        this.arrayholder = responseJson;
       });
+    }
+    catch (error) {
+      console.error(error);
+    }
 
   }
 
@@ -66,8 +67,8 @@ export default class nameSearch extends Component {
       <View
         style={{
           height: .5,
-          width: "100%",
-          backgroundColor: "#000",
+          width: "70%",
+          backgroundColor: "gray",
         }}
       />
     );
@@ -82,46 +83,39 @@ export default class nameSearch extends Component {
       );
     }
     return (
-      <View style={styles.MainContainer}>
-        <TextInput
-          style={styles.TextInputStyleClass}
-          onChangeText={(text) => this.SearchFilterFunction(text)}
-          value={this.state.text}
-          underlineColorAndroid='transparent'
-          placeholder="Search Here"
-        />
-
+      
+      <ImageBackground 
+      source={require('../assets/backgrounds/add_price.png')}
+      style={styles.MainContainer}>
+      <Searchbar
+        style={{marginRight:'10%', marginLeft:'10%'}}
+        placeholder="Pain complet"
+        onChangeText={(text) => this.SearchFilterFunction(text)}
+        value={this.state.text}
+      />
         <ListView
           dataSource={this.state.dataSource}
           renderSeparator={this.ListViewItemSeparator}
           renderRow={(rowData) =>
             <Text style={styles.rowViewContainer}
-              onPress={this.GetListViewItem.bind(this, rowData.id)} >{rowData.PName}
+              onPress={this.GetListViewItem.bind(this, rowData.id)} >{rowData.PName} -- {rowData.category}
             </Text>}
           enableEmptySections={true}
-          style={{ marginTop: 10 }}
+          style={{}}
         />
-      </View>
+      </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
   MainContainer: {
+    paddingTop: '10%',
     justifyContent: 'center',
     flex: 1,
-    margin: 7,
   },
   rowViewContainer: {
     fontSize: 17,
     padding: 10
-  },
-  TextInputStyleClass: {
-    textAlign: 'center',
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#009688',
-    borderRadius: 7,
-    backgroundColor: "#FFFFFF"
   }
 })
