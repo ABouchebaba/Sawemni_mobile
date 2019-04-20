@@ -1,0 +1,1 @@
+export default BACKEND_URL = "http://5bcc9a57.ngrok.io/Sawemni_api/";
