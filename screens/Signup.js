@@ -6,9 +6,9 @@ import { Facebook } from 'expo';
 
 export default class Search extends React.Component {
   state = {
+    fullName: '',
     mail: '',
-    password:'',
-    passconfirmation:'',
+    password: '',
   };
 
   render(){
@@ -18,6 +18,16 @@ export default class Search extends React.Component {
         <Image source={require('../assets/ass/sawemni2.png')} style={{resizeMode: 'center', width: wp(40) }} />
         </View>
         <View style={{height: hp(35), alignItems:'center', justifyContent:'space-between'}}>
+          <TextInput
+            mode='outlined'
+            selectionColor='orange'
+            underlineColor= '#fff'
+            label='Adresse mail ou téléphone'
+            value={this.state.fullName}
+            onChangeText={fullName => this.setState({ fullName })}
+            style={{width: wp(80)}}
+            theme={{colors: {primary:'orange', background:'white'}}}
+          />
           <TextInput
             mode='outlined'
             selectionColor='orange'
@@ -33,20 +43,9 @@ export default class Search extends React.Component {
             mode='outlined'
             selectionColor='orange'
             underlineColor= '#fff'
-            label='Choisir un mot de passe'
+            label='confirmation mot de passe'
             value={this.state.password}
             onChangeText={password => this.setState({ password })}
-            style={{width: wp(80)}}
-            theme={{colors: {primary:'orange', background:'white'}}}
-          />
-          <TextInput
-            secureTextEntry={true}
-            mode='outlined'
-            selectionColor='orange'
-            underlineColor= '#fff'
-            label='confirmation mot de passe'
-            value={this.state.passconfirmation}
-            onChangeText={passconfirmation => this.setState({ passconfirmation })}
             style={{width: wp(80)}}
             theme={{colors: {primary:'orange', background:'white'}}}
           />
@@ -56,7 +55,7 @@ export default class Search extends React.Component {
         </View>
 
         <View style={{height:hp(3)}} />
-        
+
         <View style={{height: hp(10), marginLeft:'15%', marginRight:'15%', alignItems:'center', justifyContent :'center',}}>
           <TouchableOpacity onPress={()=> this.props.navigation.push("Search")}> 
           <Image source={require('../assets/ass/insc.png')} style={{height: hp(12),width: wp(75) }} />
@@ -84,7 +83,7 @@ export default class Search extends React.Component {
   }
 
   signUp = async () => {
-    const { mail, password,passconfirmation } = this.state
+    const { fullName, mail, password} = this.state
     try {
       axios.post(`http://192.168.137.189/Sawemni/Sawemni_api/products/`)
         .then(res => {

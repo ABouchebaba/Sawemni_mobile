@@ -74,7 +74,7 @@ export default class nameSearch extends Component {
         value={this.state.text}
         underlineColorAndroid='transparent'
         placeholder="Search Here"
-            />
+        />
  
         <ListView
           dataSource={this.state.dataSource}
