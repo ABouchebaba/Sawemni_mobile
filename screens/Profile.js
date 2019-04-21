@@ -15,6 +15,7 @@ export default class Profile extends React.Component {
     const { navigation } = this.props;
     const data = navigation.getParam("data", {});
     const product = data.product;
+
     return (
       <ImageBackground
         source={require("../assets/backgrounds/profile.png")}
@@ -136,7 +137,7 @@ export default class Profile extends React.Component {
               }}
             >
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate("Addprice")}
+                onPress={() => this.props.navigation.navigate("Addprice", { product_id: product.id })}
               >
                 <LinearGradient
                   colors={["#ff4c3d", "#ff882c"]}

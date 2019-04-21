@@ -1,7 +1,7 @@
-import { 
-    createStackNavigator, 
+import {
+    createStackNavigator,
     createAppContainer,
-    createSwitchNavigator 
+    createSwitchNavigator
 } from 'react-navigation';
 
 import Addprice from '../screens/Addprice'
@@ -15,8 +15,8 @@ import priceAdded from '../screens/priceAdded'
 import nameSearch from '../screens/nameSearch'
 
 const AppStack = createStackNavigator(
-    { 
-        Search: Search, 
+    {
+        Search: Search,
         barcodeScanner: barcodeScanner,
         nameSearch: nameSearch,
         Profile: Profile,
@@ -24,10 +24,10 @@ const AppStack = createStackNavigator(
         priceAdded: priceAdded
     },
     {
-        initialRouteName : 'nameSearch',
+        initialRouteName: 'Search',
         headerMode: 'none'
     }
-    );
+);
 
 const AuthStack = createStackNavigator(
     { 
@@ -36,10 +36,10 @@ const AuthStack = createStackNavigator(
         Signup: Signup
     },
     {
-        initialRouteName : 'HomeScreen',
+        initialRouteName: 'HomeScreen',
         headerMode: 'none'
     }
-    );
+);
 
 export default createAppContainer(createSwitchNavigator(
     {

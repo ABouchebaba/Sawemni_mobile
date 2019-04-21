@@ -50,11 +50,11 @@ export default class barcodeScanner extends React.Component {
       .then(res => {
         //console.log(res.data)
         this.setState({ spinner: false });
-        console.log(res.data.product.imgURL)
+        //alert(JSON.stringify(res.data))
         this.props.navigation.navigate('Profile', { type: type, data: res.data });
       })
       .catch(err => {
-        alert("error")
+        alert("errr")
         console.log(err);
       });
 
