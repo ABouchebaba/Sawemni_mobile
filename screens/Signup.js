@@ -110,7 +110,9 @@ export default class Search extends React.Component {
         //alert('success')
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        AsyncStorage.setItem('@user:')
         console.log((await response))
+
        // Alert.alert('Logged in!', `Hi ${(await response.json()).id}!`);
 
       } else {
