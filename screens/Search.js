@@ -9,12 +9,14 @@ import {
   Image,
   AsyncStorage
 } from 'react-native';
+import axios from "axios";
 
 export default class Search extends React.Component {
 
   componentDidMount = async () => {
     let user = JSON.parse(await AsyncStorage.getItem("user"));
-    alert(user.fullName);
+    alert("axios = " + axios.defaults.headers.common["Authorization"] + " fin");
+    //alert(user.fullName);
   }
   render() {
     return (
