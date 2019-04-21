@@ -13,6 +13,7 @@ export default class Search extends React.Component {
     fullName: '',
     mail: '',
     password: '',
+    userInfo: null,
   };
 
   render() {
@@ -90,10 +91,6 @@ export default class Search extends React.Component {
   }
 
   handleSignUp = async () => {
-    //const { fullName, mail, password, passconfirmation } = this.state
-
-    //verify password confirmation
-
     const data = {
       fullName: this.state.fullName,
       mail: this.state.mail,
@@ -113,12 +110,35 @@ export default class Search extends React.Component {
         this.props.navigation.push("Search")
       })
       .catch(err => {
-        Alert.alert("Inscription", "Ce mail existe déja ");
-        //console.log(err);
+        //Alert.alert("Inscription", "Ce mail existe déja ");
+        console.log(err);
       });
-
-
   }
+  handleSignUpFB = async () => {
+    alert('here')
+    const fbData = {
+      fb_id: this.state.userInfo.id,
+      fullName: this.state.userInfo.name
+    }
+    console.log(fbData)
+   axios.post(BACKEND_URL + `users/signup`, fbData)
+   .then(res => {
+     console.log(res.data)
+     const { user, token } = res.data;
+     console.log(token);
+     AsyncStorage.setItem("user", JSON.stringify(user));
+     AsyncStorage.setItem("token", token);
+     setAuthToken(token);
+     this.props.navigation.push("Search")
+   })
+   .catch(err => {
+     alert(err);
+     //console.log(err);
+   });
+    //alert(await AsyncStorage.getItem('userId'))
+    //this.props.navigation.push("Search")
+  }
+
 
   async logInFB() {
     try {
@@ -129,29 +149,20 @@ export default class Search extends React.Component {
         permissions,
         declinedPermissions,
       } = await Facebook.logInWithReadPermissionsAsync('1082525895266770', {
-        permissions: ['public_profile', 'email'],
+        permissions: ['public_profile'],
       });
       if (type === 'success') {
-        //alert('success')
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-        AsyncStorage.setItem('@user:')
-        console.log((await response))
-       // Alert.alert('Logged in!', `Hi ${(await response.json()).id}!`);
-        const id = ((await response.json()).id);
-        await AsyncStorage.setItem('loginType', 'facebook');
-        await AsyncStorage.setItem('userId', id);
-
-        //alert(await AsyncStorage.getItem('userId'))
-        this.props.navigation.push("Search")
+        //Alert.alert('Connecté!', `Salut ${(await response.json()).name}!`);
+        const userInfo = await response.json();
+        this.setState({ userInfo });
+        this.handleSignUpFB()
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      //alert('catch')
       alert(`Facebook Login Error: ${message}`);
-      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-      //Alert.alert('Logged in!', `Hi ${(await response.json()).id}! ------ ${message}`);
     }
   }
 }

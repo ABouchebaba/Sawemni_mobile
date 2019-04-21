@@ -8,19 +8,23 @@ import {
   AsyncStorage
 } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import { Facebook } from 'expo';
+import setAuthToken from "../utils/setAuthToken";
 
 export default class HomeScreen extends React.Component {
 
-  async componentWillMount() {
-    //this.ifLoggedIn()
+  componentWillMount() {
+    this.checkUserSignedIn()
   }
-
-  ifLoggedIn() {
-    if (AsyncStorage.getItem('userId')) {
-      this.state.navigation.push('Search')
-    }
-    else {
+  async checkUserSignedIn(){
+    try {
+       let value = await AsyncStorage.getItem("user");
+       if (value != null){
+          let token = await AsyncStorage.getItem("token");
+          setAuthToken(token);
+          this.props.navigation.push('Search')
+       }
+    } catch (error) {
+      alert(error)
     }
   }
   render() {
