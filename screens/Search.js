@@ -16,7 +16,7 @@ export default class Search extends React.Component {
   componentDidMount = async () => {
     let user = JSON.parse(await AsyncStorage.getItem("user"));
     alert("axios = " + axios.defaults.headers.common["Authorization"] + " fin");
-    //alert(user.fullName);
+    alert(user.username);
   }
   render() {
     return (
