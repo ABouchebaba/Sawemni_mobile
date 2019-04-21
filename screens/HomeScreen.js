@@ -10,18 +10,12 @@ import { Facebook } from 'expo';
 
 export default class HomeScreen extends React.Component {
 
-    async componentWillMount(){
-      this.ifLoggedIn()
+  componentWillMount(){
+    if(AsyncStorage.getItem('id')) {
+      //this.props.navigation.push('Search')
+      //alert(JSON.stringify(AsyncStorage.getItem('id')))
     }
-
-    ifLoggedIn() {
-     if(AsyncStorage.getItem('userId')) {
-       this.state.navigation.push('Search')
-     }
-     else {
-       
-     }
-    }
+  }
     render() {
       return (
         <ImageBackground source={require('../assets/backgrounds/Auth.png')} style={styles.container} >

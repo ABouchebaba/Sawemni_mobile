@@ -26,14 +26,14 @@ export default class Search extends React.Component {
         </View>
 
         <View style={styles.views}>
-          <TouchableHighlight onPress={() => this.props.navigation.navigate('nameSearch')}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('nameSearch')}>
             <View style={styles.views}>
               <Text style={{ fontSize: 25, color: '#fff' }}>Rechercher par nom</Text>
               <Image source={require('../assets/ass/searchbar.png')}
                 style={{ aspectRatio: 2, resizeMode: 'contain' }}
               />
             </View>
-          </TouchableHighlight>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     )

@@ -49,9 +49,6 @@ export default class Search extends React.Component {
             style={{width: wp(80)}}
             theme={{colors: {primary:'orange', background:'white'}}}
           />
-          <TouchableOpacity onPress={()=> alert('mdp')} style={{marginLeft:'36%'}} >
-          <Text style={{fontSize:18, color:'#999999'}} >Mot de pass oublié?</Text>
-          </TouchableOpacity> 
         </View>
 
         <View style={{height:hp(3)}} />
@@ -73,7 +70,7 @@ export default class Search extends React.Component {
             <Image source={require('../assets/ass/fb2.png')} style={{resizeMode:'contain',width: wp(25) }}/>
             </TouchableOpacity>
             <View style={{width:wp(5)}} />
-            <TouchableOpacity onPress={() => this.logInFB} >
+            <TouchableOpacity onPress={() => this.logInGM()} >
               <Image source={require('../assets/ass/ggl2.png')} style={{resizeMode:'contain',width: wp(25) }}/>
             </TouchableOpacity>
           </View>
@@ -110,20 +107,20 @@ export default class Search extends React.Component {
         permissions: ['public_profile','email'],
       });
       if (type === 'success') {
+        //alert('success')
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        alert((response.json()))
+       // Alert.alert('Logged in!', `Hi ${(await response.json()).id}!`);
 
-        const id = ((await response.json()).id);
-        await AsyncStorage.setItem('loginType', 'facebook' );
-        await AsyncStorage.setItem('userId', id );
-        
-        //alert(await AsyncStorage.getItem('userId'))
-        this.props.navigation.push("Search")
       } else {
         // type === 'cancel'
       }
     } catch ({ message }) {
-      alert(`Facebook Login Error: ${message}`);
+      alert('catch')
+      //alert(`Facebook Login Error: ${message}`);
+      const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+      //Alert.alert('Logged in!', `Hi ${(await response.json()).id}! ------ ${message}`);
     }
   }
 }

@@ -24,16 +24,16 @@ const AppStack = createStackNavigator(
         priceAdded: priceAdded
     },
     {
-        initialRouteName : 'Search',
+        initialRouteName : 'nameSearch',
         headerMode: 'none'
     }
     );
 
 const AuthStack = createStackNavigator(
     { 
+        HomeScreen: HomeScreen,
         Signin: Signin,
-        Signup: Signup,
-        HomeScreen: HomeScreen
+        Signup: Signup
     },
     {
         initialRouteName : 'HomeScreen',
@@ -43,6 +43,6 @@ const AuthStack = createStackNavigator(
 
 export default createAppContainer(createSwitchNavigator(
     {
-        App: AppStack,
         Auth: AuthStack,
+        App: AppStack,
     }))
