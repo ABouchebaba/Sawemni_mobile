@@ -114,31 +114,27 @@ export default class Search extends React.Component {
         console.log(err);
       });
   }
+
   handleSignUpFB = async () => {
     alert('here')
-    const fbData = {
-      fb_id: this.state.userInfo.id,
-      fullName: this.state.userInfo.name
-    }
-    console.log(fbData)
-   axios.post(BACKEND_URL + `users/signup`, fbData)
-   .then(res => {
-     console.log(res.data)
-     const { user, token } = res.data;
-     console.log(token);
-     AsyncStorage.setItem("user", JSON.stringify(user));
-     AsyncStorage.setItem("token", token);
-     setAuthToken(token);
-     this.props.navigation.push("Search")
-   })
-   .catch(err => {
-     alert(err);
-     //console.log(err);
-   });
-    //alert(await AsyncStorage.getItem('userId'))
-    //this.props.navigation.push("Search")
+    console.log(this.state.userInfo)
+    axios.post(BACKEND_URL + `users/signupFB`, this.state.userInfo)
+    .then(res => {
+      console.log(res.data)
+      const { user, token } = res.data;
+      console.log(token);
+      AsyncStorage.setItem("user", JSON.stringify(user));
+      AsyncStorage.setItem("token", token);
+      setAuthToken(token);
+      this.props.navigation.push("Search")
+    })
+    .catch(err => {
+      alert(err);
+      //console.log(err);
+    });
+      //alert(await AsyncStorage.getItem('userId'))
+      //this.props.navigation.push("Search")
   }
-
 
   async logInFB() {
     try {

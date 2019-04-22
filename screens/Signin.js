@@ -3,6 +3,7 @@ import { TextInput } from 'react-native-paper';
 import { View, StyleSheet, Image, Text, TouchableOpacity, Alert, AsyncStorage } from 'react-native'
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import axios from "axios";
+import { Facebook } from 'expo';
 import BACKEND_URL from "../consts";
 import setAuthToken from "../utils/setAuthToken";
 
@@ -10,7 +11,8 @@ import setAuthToken from "../utils/setAuthToken";
 export default class Search extends React.Component {
   state = {
     mail: '',
-    password: ''
+    password: '',
+    userInfo: null
   };
 
   handleSignin = () => {
@@ -42,6 +44,53 @@ export default class Search extends React.Component {
 
 
   }
+
+  handleSignUpFB = async () => {
+    console.log(this.state.userInfo)
+    axios.post(BACKEND_URL + `users/signupFB`, this.state.userInfo)
+    .then(res => {
+      console.log(res.data)
+      const { user, token } = res.data;
+      console.log(token);
+      AsyncStorage.setItem("user", JSON.stringify(user));
+      AsyncStorage.setItem("token", token);
+      setAuthToken(token);
+      this.props.navigation.push("Search")
+    })
+    .catch(err => {
+      alert(err);
+      //console.log(err);
+    });
+      //alert(await AsyncStorage.getItem('userId'))
+      //this.props.navigation.push("Search")
+  }
+
+  async logInFB() {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync('1082525895266770', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        //Alert.alert('Connecté!', `Salut ${(await response.json()).name}!`);
+        const userInfo = await response.json();
+        this.setState({ userInfo });
+        this.handleSignUpFB()
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  }
+
 
   render() {
     return (
@@ -89,7 +138,7 @@ export default class Search extends React.Component {
             <Text style={{ fontSize: 18, color: '#999999' }} > ــــ ou ــــ</Text>
           </View>
           <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-            <TouchableOpacity onPress={() => alert('FB')} >
+            <TouchableOpacity onPress={() => this.logInFB()} >
               <Image source={require('../assets/ass/fb2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
             <View style={{ width: wp(5) }} />
