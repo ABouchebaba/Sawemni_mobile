@@ -17,7 +17,7 @@ export default class nameSearch extends Component {
 
   async componentDidMount() {
     try {
-      const response = await fetch(BACKEND_URL + 'products/');
+      const response = await fetch(BACKEND_URL + 'userProducts/');
       const responseJson = await response.json();
       let ds = new ListView.DataSource({ rowHasChanged: (r1_1, r2) => r1_1 !== r2 });
       this.setState({
@@ -67,8 +67,11 @@ export default class nameSearch extends Component {
       <View
         style={{
           height: .5,
-          width: "70%",
-          backgroundColor: "gray",
+          width: "80%",
+          backgroundColor: "black",
+          alignSelf:'center',
+          justifyContent:'center',
+          alignContent:'center'
         }}
       />
     );
@@ -98,10 +101,10 @@ export default class nameSearch extends Component {
           renderSeparator={this.ListViewItemSeparator}
           renderRow={(rowData) =>
             <Text style={styles.rowViewContainer}
-              onPress={this.GetListViewItem.bind(this, rowData.id)} >{rowData.PName} -- {rowData.category}
+              onPress={this.GetListViewItem.bind(this, rowData.id)} >{rowData.PName} ــ {rowData.category}
             </Text>}
           enableEmptySections={true}
-          style={{}}
+          style={styles.list}
         />
       </ImageBackground>
     );
@@ -115,7 +118,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rowViewContainer: {
+    color:'gray',
     fontSize: 17,
     padding: 10
+  },
+  list: {
+    backgroundColor: 'white',
+    marginTop: '5%',
+    borderRadius: 5,
+    marginLeft:'10%',
+    marginRight: '10%',
+    elevation: 8,
+    shadowOffset: { width: 5, height: 5 },
+    shadowColor: "grey",
+    shadowOpacity: 0.5,
+    shadowRadius: 10,
   }
 })

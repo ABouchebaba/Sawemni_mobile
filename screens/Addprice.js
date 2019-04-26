@@ -18,7 +18,6 @@ export default class Addprice extends React.Component {
     super(props);
     this.state = {
       price: '0',
-
     };
   }
   IncrementItem = (nb) => {
@@ -67,7 +66,7 @@ export default class Addprice extends React.Component {
       <ImageBackground source={require('../assets/backgrounds/add_price.png')} style={styles.imgbck}>
         <View style={{ flex: 1 }}>
           <View style={styles.view1}>
-            <Ionicons name="ios-arrow-back" size={50} color="white" onPress={() => alert('back')} />
+            <Ionicons name="ios-arrow-back" size={50} color="white" onPress={() => this.props.navigation.goback()} />
           </View>
           <View style={{ justifyContent: 'space-between', alignItems: 'stretch', height: hp('25%'), marginLeft: '13%', marginRight: '13%' }}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>

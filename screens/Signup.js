@@ -6,7 +6,7 @@ import { Facebook } from 'expo';
 import BACKEND_URL from "../consts";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-
+import { GoogleSignIn } from 'expo-google-sign-in';
 
 export default class Search extends React.Component {
   state = {
@@ -56,10 +56,6 @@ export default class Search extends React.Component {
             style={{ width: wp(80) }}
             theme={{ colors: { primary: 'orange', background: 'white' } }}
           />
-
-          <TouchableOpacity onPress={() => alert('mdp')} style={{ marginLeft: '36%' }} >
-            <Text style={{ fontSize: 18, color: '#999999' }} >Mot de pass oublié?</Text>
-          </TouchableOpacity>
         </View>
 
         <View style={{ height: hp(3) }} />
@@ -81,7 +77,7 @@ export default class Search extends React.Component {
               <Image source={require('../assets/ass/fb2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
             <View style={{ width: wp(5) }} />
-            <TouchableOpacity onPress={() => this.logInFB()} >
+            <TouchableOpacity onPress={() => this.loginGoogle()} >
               <Image source={require('../assets/ass/ggl2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
           </View>
@@ -110,21 +106,19 @@ export default class Search extends React.Component {
         this.props.navigation.push("Search")
       })
       .catch(err => {
-        //Alert.alert("Inscription", "Ce mail existe déja ");
-        console.log(err);
+        Alert.alert("Inscription", err);
+        //console.log(err);
       });
   }
 
   handleSignUpFB = async () => {
-    alert('here')
-    console.log(this.state.userInfo)
     axios.post(BACKEND_URL + `users/signupFB`, this.state.userInfo)
     .then(res => {
       console.log(res.data)
       const { user, token } = res.data;
       console.log(token);
       AsyncStorage.setItem("user", JSON.stringify(user));
-      AsyncStorage.setItem("token", token);
+      AsyncStorage.setItem("token", JSON.stringify(token));
       setAuthToken(token);
       this.props.navigation.push("Search")
     })
@@ -155,13 +149,50 @@ export default class Search extends React.Component {
         this.setState({ userInfo });
         this.handleSignUpFB()
       } else {
-        // type === 'cancel'
+        alert("erreur")
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
     }
   }
+
+  async loginGoogle() {
+    try {
+      await GoogleSignIn.initAsync({
+        clientID: '178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v.apps.googleusercontent.com',
+      });
+      this.handleSignUpGoogle();
+    } catch ({ message }) {
+        alert('GoogleSignIn.initAsync(): ' + message);
+    }
+  }
+
+  handleSignUpGoogle = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        const userInfo = await user
+        axios.post(BACKEND_URL + `users/signupGoogle`, userInfo)
+        .then(res => {
+          alert(res.data)
+          const { user, token } = res.data;
+          console.log(token);
+          AsyncStorage.setItem("user", JSON.stringify(user));
+          AsyncStorage.setItem("token", JSON.stringify(token));
+          setAuthToken(token);
+          this.props.navigation.push("Search")
+        })
+        .catch(err => {
+          alert(err);
+        });
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
 }
+
 const styles = StyleSheet.create({
   global: {
     flex: 1,

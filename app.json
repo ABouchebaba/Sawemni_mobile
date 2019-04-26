@@ -1,16 +1,17 @@
 {
   "expo": {
-    "name": "Sawemeni",
-    "slug": "Sawemeni",
+    "name": "Sawemli",
+    "description": "",
+    "slug": "Sawemli",
     "privacy": "public",
     "sdkVersion": "32.0.0",
+    "version": "1.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/sICON.png",
     "splash": {
       "image": "./assets/sawem.png",
       "resizeMode": "cover",
@@ -25,10 +26,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.sawemli.sawemli",
+      "config": {
+        "googleSignIn": {
+          "reservedClientId": "com.googleusercontent.apps.178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v"
+        }
+      }
     },
     "android": {
-      "package": "com.sawemeni.sawemeni",
+      "package": "com.sawemli.sawemli",
+      "googleServicesFile": "./utils/google-services.json",
       "versionCode": 1,
       "permissions": [
         "CAMERA",
@@ -39,6 +47,6 @@
     "facebookScheme": "fb1082525895266770",
     "primaryColor": "##ff4c3d",
     "facebookAppId": "1082525895266770",
-    "facebookDisplayName": "Sawemeni"
+    "facebookDisplayName": "Sawemli"
   }
 }

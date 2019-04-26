@@ -6,6 +6,7 @@ import axios from "axios";
 import { Facebook } from 'expo';
 import BACKEND_URL from "../consts";
 import setAuthToken from "../utils/setAuthToken";
+import { GoogleSignIn } from 'expo-google-sign-in';
 
 
 export default class Search extends React.Component {
@@ -51,7 +52,7 @@ export default class Search extends React.Component {
     .then(res => {
       console.log(res.data)
       const { user, token } = res.data;
-      console.log(token);
+      console.log(typeof(token));
       AsyncStorage.setItem("user", JSON.stringify(user));
       AsyncStorage.setItem("token", token);
       setAuthToken(token);
@@ -90,6 +91,42 @@ export default class Search extends React.Component {
       alert(`Facebook Login Error: ${message}`);
     }
   }
+
+  async loginGoogle() {
+    try {
+      await GoogleSignIn.initAsync({
+        clientID: '178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v.apps.googleusercontent.com',
+      });
+      this.handleSignUpGoogle();
+    } catch ({ message }) {
+        alert('GoogleSignIn.initAsync(): ' + message);
+    }
+  }
+
+  handleSignUpGoogle = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        const userInfo = await user
+        axios.post(BACKEND_URL + `users/signupGoogle`, userInfo)
+        .then(res => {
+          alert(res.data)
+          const { user, token } = res.data;
+          console.log(token);
+          AsyncStorage.setItem("user", JSON.stringify(user));
+          AsyncStorage.setItem("token", JSON.stringify(token));
+          setAuthToken(token);
+          this.props.navigation.push("Search")
+        })
+        .catch(err => {
+          alert(err);
+        });
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
 
 
   render() {
@@ -142,7 +179,7 @@ export default class Search extends React.Component {
               <Image source={require('../assets/ass/fb2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
             <View style={{ width: wp(5) }} />
-            <TouchableOpacity onPress={() => alert('ggl')} >
+            <TouchableOpacity onPress={() => this.loginGoogle()} >
               <Image source={require('../assets/ass/ggl2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
           </View>

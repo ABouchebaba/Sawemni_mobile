@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo";
+import BACKEND_URL from "../consts";
 
 export default class Profile extends React.Component {
   render() {
@@ -40,7 +41,7 @@ export default class Profile extends React.Component {
             <Image
               //require("../assets/ass/kitkat.jpg")
 
-              source={{ uri: "http://6fb8b181.ngrok.io/Sawemni_api/" + product.imgURL }}
+              source={{ uri: BACKEND_URL + product.ImgURL }}
               style={styles.image}
             />
           </View>
@@ -73,8 +74,8 @@ export default class Profile extends React.Component {
               }}
             >
               <Text style={styles.text2}>{product.category}</Text>
-              <Text style={styles.text2}>{product.producer}</Text>
-              <Text style={styles.text2}>{product.barcode}</Text>
+              <Text style={styles.text3}>{product.producer}</Text>
+              <Text style={styles.text4}>{product.barcode}</Text>
             </View>
             <View
               style={{
@@ -181,6 +182,17 @@ const styles = StyleSheet.create({
   text2: {
     fontSize: 20,
     color: "white"
+  },
+  text3: {
+    fontSize: 18,
+    color: "white",
+    fontWeight: '400',
+  },
+  text4: {
+    fontSize: 15,
+    color: "white",
+    fontStyle: 'italic',
+    fontWeight: '300'
   },
   image: {
     width: '50%',

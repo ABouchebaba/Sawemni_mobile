@@ -14,8 +14,9 @@ import axios from "axios";
 export default class Search extends React.Component {
 
   componentDidMount = async () => {
+    
     let user = JSON.parse(await AsyncStorage.getItem("user"));
-    alert("axios = " + axios.defaults.headers.common["Authorization"] + " fin");
+    alert("axios = " + axios.defaults.headers.common["authorization"] + " fin");
     //alert(user.username);
   }
   render() {
@@ -31,6 +32,9 @@ export default class Search extends React.Component {
               <Text style={{ fontSize: 25 }}>Scanner le code-barres</Text>
             </View>
           </TouchableOpacity>
+          <Text style={{backgroundColor:'red'}} onPress={() => this.logout()}>
+            logout
+          </Text>
         </View>
 
         <View style={styles.views}>
@@ -45,6 +49,10 @@ export default class Search extends React.Component {
         </View>
       </ImageBackground>
     )
+  }
+  logout = async () => {
+    await AsyncStorage.clear()
+    this.props.navigation.push("HomeScreen")
   }
 }
 const styles = StyleSheet.create({

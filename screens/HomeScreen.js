@@ -13,20 +13,20 @@ import setAuthToken from "../utils/setAuthToken";
 export default class HomeScreen extends React.Component {
 
   componentWillMount() {
-    AsyncStorage.clear()
+    //AsyncStorage.clear()
     this.checkUserSignedIn()
   }
   async checkUserSignedIn(){
     try {
-       let value = await AsyncStorage.getItem("user");
+       let user = await AsyncStorage.getItem("user");
        let token = await AsyncStorage.getItem("token");
-       console.log("user\n")
-       console.log(value)
-       console.log("token\n")
-       console.log(token)
-       if (value != null){
-          await setAuthToken(token);
-          this.props.navigation.push('Search')
+      console.log("user\n")
+      console.log(user)
+      console.log("token\n")
+      console.log(token)
+       if (user != null && token != null){
+        setAuthToken(token);
+        this.props.navigation.push('Search')
        }
     } catch (error) {
       alert(error)
