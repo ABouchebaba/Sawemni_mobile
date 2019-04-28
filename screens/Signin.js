@@ -17,12 +17,15 @@ export default class Search extends React.Component {
   };
 
   handleSignin = () => {
-
+  
     const data = {
       mail: this.state.mail,
       password: this.state.password,
     }
-
+    if (data.mail == '' || data.password == '') {
+      alert("kemel ekteb")
+      return
+    }
     axios.post(BACKEND_URL + "users/login", data)
       .then(res => {
         //Alert.alert(JSON.stringify(res.data))
@@ -42,7 +45,29 @@ export default class Search extends React.Component {
       .catch(err => {
         Alert.alert("Erreur", "Adresse mail ou mot de passe incorrecte")
       })
+    
 
+  }
+
+  passwordReset = () => {
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    let numRegex = /^[0][0567]{1}[0-9]{8}$/
+
+    if(this.state.mail != ''){
+      if(mailRegex.test(this.state.mail) === true) {
+
+        // mail reset logig
+      
+      }
+      else if (numRegex.test(this.state.mail) === true) {
+        this.props.navigation.navigate('mobileReset', {
+          mobile: this.state.mail
+        })
+      }
+      else {
+        Alert.alert("Mot de passe oublié","veuillez entrer votre Adresse mail ou numéro de téléphone")
+      }
+    }
 
   }
 
@@ -157,7 +182,7 @@ export default class Search extends React.Component {
             style={{ width: wp(80) }}
             theme={{ colors: { primary: 'orange', background: 'white' } }}
           />
-          <TouchableOpacity onPress={() => alert('mdp')} style={{ marginLeft: '36%' }} >
+          <TouchableOpacity onPress={() => this.passwordReset()} style={{ marginLeft: '36%' }} >
             <Text style={{ fontSize: 18, color: '#999999' }} >Mot de pass oublié?</Text>
           </TouchableOpacity>
         </View>

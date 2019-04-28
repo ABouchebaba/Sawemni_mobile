@@ -10,6 +10,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo";
 import BACKEND_URL from "../consts";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default class Profile extends React.Component {
   render() {
@@ -39,9 +40,9 @@ export default class Profile extends React.Component {
             }}
           >
             <Image
-              //require("../assets/ass/kitkat.jpg")
+              
 
-              source={{ uri: BACKEND_URL + product.ImgURL }}
+              source={(product.imgURL) ? ({uri : BACKEND_URL + product.imgURL}) :  require("../assets/groceries.png")}
               style={styles.image}
             />
           </View>
@@ -195,9 +196,9 @@ const styles = StyleSheet.create({
     fontWeight: '300'
   },
   image: {
-    width: '50%',
-    height: 150,
-    resizeMode: "cover",
+    width: wp(80),
+    height: hp(30),
+    resizeMode: "contain",
     //aspectRatio: 1 / 2,
     borderRadius: 20
   },

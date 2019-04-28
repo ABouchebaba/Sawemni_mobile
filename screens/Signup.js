@@ -87,28 +87,44 @@ export default class Search extends React.Component {
   }
 
   handleSignUp = async () => {
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    let numRegex = /^[0][0567]{1}[0-9]{8}$/
     const data = {
       fullName: this.state.fullName,
       mail: this.state.mail,
       password: this.state.password,
     }
-    axios.post(BACKEND_URL + `users/signup`, data)
-      .then(res => {
-        //alert(res.data)
-        const { user, token } = res.data;
-        //alert(token);
+    if(data.fullName != '' || data.password != '') {
 
-        AsyncStorage.setItem("user", JSON.stringify(user));
-        AsyncStorage.setItem("token", token);
-
-        setAuthToken(token);
-
-        this.props.navigation.push("Search")
-      })
-      .catch(err => {
-        Alert.alert("Inscription", err);
-        //console.log(err);
-      });
+      if(mailRegex.test(data.mail) === true)
+      {
+        axios.post(BACKEND_URL + `users/signup`, data)
+          .then(res => {
+            //alert(res.data)
+            const { user, token } = res.data;
+            //alert(token);
+            AsyncStorage.setItem("user", JSON.stringify(user));
+            AsyncStorage.setItem("token", token);
+            setAuthToken(token);
+            this.props.navigation.push("Search")
+          })
+          .catch(err => {
+            Alert.alert("Inscription", err);
+            //console.log(err);
+          });
+        }
+        else if (numRegex.test(data.mail) === true){
+          this.props.navigation.navigate('accountKitWebView', {
+            userData: data
+          })
+        }
+        else {
+          Alert.alert("Inscription","Adresse mail ou téléphone erroné")
+        }
+    }
+    else {
+      Alert.alert("Inscription","veuillez remplir les champs vides")
+    }
   }
 
   handleSignUpFB = async () => {

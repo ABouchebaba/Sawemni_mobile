@@ -10,12 +10,14 @@ import {
   AsyncStorage
 } from 'react-native';
 import axios from "axios";
+import setAuthToken from '../utils/setAuthToken';
 
 export default class Search extends React.Component {
 
   componentDidMount = async () => {
     
-    let user = JSON.parse(await AsyncStorage.getItem("user"));
+    let token = await AsyncStorage.getItem("token");
+    setAuthToken(token)
     alert("axios = " + axios.defaults.headers.common["authorization"] + " fin");
     //alert(user.username);
   }
@@ -52,6 +54,7 @@ export default class Search extends React.Component {
   }
   logout = async () => {
     await AsyncStorage.clear()
+    setAuthToken()
     this.props.navigation.push("HomeScreen")
   }
 }

@@ -16,22 +16,24 @@ export default class nameSearch extends Component {
   }
 
   async componentDidMount() {
-    try {
-      const response = await fetch(BACKEND_URL + 'userProducts/');
-      const responseJson = await response.json();
-      let ds = new ListView.DataSource({ rowHasChanged: (r1_1, r2) => r1_1 !== r2 });
-      this.setState({
-        isLoading: false,
-        dataSource: ds.cloneWithRows(responseJson),
-      }, function () {
-        // In this block you can do something with new state.
-        this.arrayholder = responseJson;
+      axios.get(BACKEND_URL + 'userProducts/')
+      .then(res => {
+        let responseJson = res.data
+        console.log(responseJson)
+        let ds = new ListView.DataSource({ rowHasChanged: (r1_1, r2) => r1_1 !== r2 });
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson),
+        }, function () {
+          // In this block you can do something with new state.
+          this.arrayholder = responseJson;
+        });
+      })
+      .catch(err => {
+        alert("error")
+        console.log(err);
       });
-    }
-    catch (error) {
-      console.error(error);
-    }
-
+      
   }
 
   GetListViewItem(id) {

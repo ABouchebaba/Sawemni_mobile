@@ -18,7 +18,6 @@ export default class barcodeScanner extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-
   render() {
     const { hasCameraPermission } = this.state;
     if (hasCameraPermission === null) {

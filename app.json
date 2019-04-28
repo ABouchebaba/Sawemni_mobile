@@ -11,7 +11,7 @@
       "android"
     ],
     "orientation": "portrait",
-    "icon": "./assets/sICON.png",
+    "icon": "./assets/icon2.png",
     "splash": {
       "image": "./assets/sawem.png",
       "resizeMode": "cover",
@@ -32,7 +32,8 @@
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v"
         }
-      }
+      },
+      "icon":"./assets/icon.png"
     },
     "android": {
       "package": "com.sawemli.sawemli",
@@ -47,6 +48,18 @@
     "facebookScheme": "fb1082525895266770",
     "primaryColor": "##ff4c3d",
     "facebookAppId": "1082525895266770",
-    "facebookDisplayName": "Sawemli"
+    "facebookDisplayName": "Sawemli",
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "Sawemli",
+            "project": "sawemli",
+            "authToken": "9e4c5d0dd1b640eca2c321d8fb886178707d9f6b53ea48f09226061193b64f52"
+          }
+        }
+      ]
+    }
   }
 }

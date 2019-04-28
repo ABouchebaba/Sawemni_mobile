@@ -13,6 +13,8 @@ import Signin from '../screens/Signin'
 import barcodeScanner from '../screens/barcodeScanner'
 import priceAdded from '../screens/priceAdded'
 import nameSearch from '../screens/nameSearch'
+import accountKitWebView from '../screens/accountKitWebView'
+import mobileReset from '../screens/mobileReset'
 
 const AppStack = createStackNavigator(
     {
@@ -32,8 +34,10 @@ const AppStack = createStackNavigator(
 const AuthStack = createStackNavigator(
     { 
         HomeScreen: HomeScreen,
+        Signup: Signup,
+        accountKitWebView: accountKitWebView,
         Signin: Signin,
-        Signup: Signup
+        mobileReset: mobileReset
     },
     {
         initialRouteName: 'HomeScreen',
