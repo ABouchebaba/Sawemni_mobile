@@ -50,6 +50,7 @@ export default class Search extends React.Component {
   }
 
   passwordReset = () => {
+
     let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
     let numRegex = /^[0][0567]{1}[0-9]{8}$/
 
@@ -65,10 +66,12 @@ export default class Search extends React.Component {
         })
       }
       else {
-        Alert.alert("Mot de passe oublié","veuillez entrer votre Adresse mail ou numéro de téléphone")
+        Alert.alert("","Adresse mail ou numéro de téléphone n'existe pas")
       }
     }
-
+    else {
+      Alert.alert("Mot de passe oublié","veuillez entrer votre Adresse mail ou numéro de téléphone")
+    }
   }
 
   handleSignUpFB = async () => {
