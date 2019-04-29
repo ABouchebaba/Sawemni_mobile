@@ -33,11 +33,9 @@ export default class nameSearch extends Component {
         alert("error")
         console.log(err);
       });
-      
   }
 
   GetListViewItem(id) {
-
     //alert(`http://6fb8b181.ngrok.io/Sawemni_api/products/${id}`);
     axios.get(BACKEND_URL + `products/${id}`)
       .then(res => {
@@ -88,7 +86,6 @@ export default class nameSearch extends Component {
       );
     }
     return (
-      
       <ImageBackground 
       source={require('../assets/backgrounds/add_price.png')}
       style={styles.MainContainer}>
@@ -103,7 +100,9 @@ export default class nameSearch extends Component {
           renderSeparator={this.ListViewItemSeparator}
           renderRow={(rowData) =>
             <Text style={styles.rowViewContainer}
-              onPress={this.GetListViewItem.bind(this, rowData.id)} >{rowData.PName} ــ {rowData.category}
+              onPress={this.GetListViewItem.bind(this, rowData.id)} >
+              {rowData.PName}
+               {/* ــ {rowData.category} */}
             </Text>}
           enableEmptySections={true}
           style={styles.list}

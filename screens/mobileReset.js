@@ -47,7 +47,7 @@ export default class mobileReset extends Component {
         if(this.state.password === this.state.password2){
             if(this.state.password.length >= 8 ) {
                 const { navigation } = this.props;
-                const mobile = '0555077411'
+                const mobile = navigation.getParam("mobile", {});
                 const data = {
                     mobile: mobile,
                     password: this.state.password
@@ -64,6 +64,7 @@ export default class mobileReset extends Component {
                 })
                 .catch(err => {
                     Alert.alert("Erreur", "Numéro de téléphone n'existe pas");
+                    this.props.navigation.navigate('HomeScreen')
                     console.log(err);
                 });
             }

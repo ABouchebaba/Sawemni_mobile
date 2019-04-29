@@ -11,7 +11,7 @@ export default class App extends React.Component {
 }
 
 Sentry.config('https://1e503bcadf7349a7a10ceea6eea1e90f@sentry.io/1447671').install();
-
+Sentry.enableInExpoDevelopment = true
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',

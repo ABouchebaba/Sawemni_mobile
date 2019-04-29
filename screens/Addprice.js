@@ -77,7 +77,7 @@ export default class Addprice extends React.Component {
             </View>
           </View>
           <View style={{ height: '55%', marginLeft: '13%', marginRight: '13%', justifyContent: 'space-between', alignItems: 'stretch' }}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1 }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible' }}>
               <TouchableOpacity onPress={() => this.IncrementItem(1)}>
                 <Image source={require('../assets/price/1.png')} style={styles.number} />
               </TouchableOpacity>
@@ -88,7 +88,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/3.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' , zIndex: 1, overflow: 'visible' }}>
               <TouchableOpacity onPress={() => this.IncrementItem(4)}>
                 <Image source={require('../assets/price/4.png')} style={styles.number} />
               </TouchableOpacity>
@@ -99,7 +99,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/6.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible'  }}>
               <TouchableOpacity onPress={() => this.IncrementItem(7)}>
                 <Image source={require('../assets/price/7.png')} style={styles.number} />
               </TouchableOpacity>
@@ -110,7 +110,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/9.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible'  }}>
               <TouchableOpacity onPress={() => this.DecreaseItem()}
                 onLongPress={() => this.setState({ price: '0' })}
               >

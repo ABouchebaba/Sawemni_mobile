@@ -53,13 +53,11 @@ export default class barcodeScanner extends React.Component {
         this.props.navigation.navigate('Profile', { type: type, data: res.data });
       })
       .catch(err => {
-        Alert.alert("","Produit indisponible")
+        Alert.alert("Erreur","Produit indisponible")
         this.setState({ spinner: false });
         type, data = null
         console.log(err);
       });
     }
   }
-
-
 }
