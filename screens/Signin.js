@@ -19,6 +19,7 @@ export default class Search extends React.Component {
       mail: this.state.mail,
       password: this.state.password,
     }
+    console.log("enter");
 
     axios.post(BACKEND_URL + "users/login", data)
       .then(res => {
@@ -37,7 +38,7 @@ export default class Search extends React.Component {
 
       })
       .catch(err => {
-        Alert.alert("Erreur", "Adresse mail ou mot de passe incorrecte")
+        Alert.alert("Erreur", err + " Adresse mail ou mot de passe incorrecte")
       })
 
 

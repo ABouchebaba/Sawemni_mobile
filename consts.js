@@ -1,1 +1,1 @@
-export default BACKEND_URL = "http://a7ee1961.ngrok.io/Sawemni_api/";
+export default BACKEND_URL = "http://70cfe73b.ngrok.io/Sawemni_api/";

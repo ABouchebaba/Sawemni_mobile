@@ -115,7 +115,7 @@ export default class Search extends React.Component {
         this.props.navigation.push("Search")
       })
       .catch(err => {
-        Alert.alert("Inscription", "Ce mail existe déja ");
+        Alert.alert("Inscription", err + "Ce mail existe déja ");
         //console.log(err);
       });
 
