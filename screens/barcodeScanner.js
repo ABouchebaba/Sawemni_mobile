@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Button, View, Text } from 'react-native';
+import { StyleSheet, Button, View, Text, Alert } from 'react-native';
 import { BarCodeScanner, Permissions } from 'expo';
 import axios from "axios";
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -17,7 +17,6 @@ export default class barcodeScanner extends React.Component {
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
     this.setState({ hasCameraPermission: status === 'granted' });
   }
-
 
   render() {
     const { hasCameraPermission } = this.state;
@@ -43,7 +42,7 @@ export default class barcodeScanner extends React.Component {
   }
 
   handleBarCodeScanned = ({ type, data }) => {
-
+    if (data !== null) {
     this.setState({ spinner: true });
     //scan.off;
     axios.get(BACKEND_URL + `products/barcode/${data}`)
@@ -54,11 +53,11 @@ export default class barcodeScanner extends React.Component {
         this.props.navigation.navigate('Profile', { type: type, data: res.data });
       })
       .catch(err => {
-        alert("errr")
+        Alert.alert("Erreur","Produit indisponible")
+        this.setState({ spinner: false });
+        type, data = null
         console.log(err);
       });
-
+    }
   }
-
-
 }

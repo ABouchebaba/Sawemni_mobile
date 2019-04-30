@@ -1,1 +1,2 @@
 [0418/171632.125:ERROR:settings.cc(320)] Settings magic is not 1129342067
+[0425/141112.060:ERROR:http_transport_win.cc(276)] WinHttpSendRequest: L’opération a réussi. (0x0)

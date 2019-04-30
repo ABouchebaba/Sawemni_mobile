@@ -6,18 +6,24 @@ import { Text,
     Image } from 'react-native';
  
 export default class priceAdded extends React.Component {
-    render() {
-      return (
-            <ImageBackground source={require('../assets/backgrounds/parfait.png')} style={styles.container} >
-              <View style={styles.views}>
-                <Text style={{fontWeight: '500', fontSize:33}}>Parfait !</Text>
-                <Image source={require('../assets/price/perfect.png')} style={{height:'30%',resizeMode:'contain',margin: '6%'}} />
-                <Text style={{fontWeight: '300', fontSize:20}}>Votre prix a été ajouté </Text>
-              </View>
-            </ImageBackground>
-      )
-    }
+
+  componentDidMount(){
+    setTimeout( () => {
+      this.props.navigation.navigate('Profile');
+   },1600);
   }
+  render() {
+    return (
+          <ImageBackground source={require('../assets/backgrounds/parfait.png')} style={styles.container} >
+            <View style={styles.views}>
+              <Text style={{fontWeight: '500', fontSize:33}}>Parfait !</Text>
+              <Image source={require('../assets/price/perfect.png')} style={{height:'30%',resizeMode:'contain',margin: '6%'}} />
+              <Text style={{fontWeight: '300', fontSize:20}}>Votre prix a été ajouté </Text>
+            </View>
+          </ImageBackground>
+    )
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

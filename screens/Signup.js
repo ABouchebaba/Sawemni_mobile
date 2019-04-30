@@ -6,14 +6,14 @@ import { Facebook } from 'expo';
 import BACKEND_URL from "../consts";
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken";
-
+import { GoogleSignIn } from 'expo-google-sign-in';
 
 export default class Search extends React.Component {
   state = {
     fullName: '',
     mail: '',
     password: '',
-
+    userInfo: null,
   };
 
   render() {
@@ -56,10 +56,6 @@ export default class Search extends React.Component {
             style={{ width: wp(80) }}
             theme={{ colors: { primary: 'orange', background: 'white' } }}
           />
-
-          <TouchableOpacity onPress={() => alert('mdp')} style={{ marginLeft: '36%' }} >
-            <Text style={{ fontSize: 18, color: '#999999' }} >Mot de pass oublié?</Text>
-          </TouchableOpacity>
         </View>
 
         <View style={{ height: hp(3) }} />
@@ -81,7 +77,7 @@ export default class Search extends React.Component {
               <Image source={require('../assets/ass/fb2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
             <View style={{ width: wp(5) }} />
-            <TouchableOpacity onPress={() => this.logInFB()} >
+            <TouchableOpacity onPress={() => this.loginGoogle()} >
               <Image source={require('../assets/ass/ggl2.png')} style={{ resizeMode: 'contain', width: wp(25) }} />
             </TouchableOpacity>
           </View>
@@ -91,35 +87,62 @@ export default class Search extends React.Component {
   }
 
   handleSignUp = async () => {
-    //const { fullName, mail, password, passconfirmation } = this.state
-
-    //verify password confirmation
-
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    let numRegex = /^[0][0567]{1}[0-9]{8}$/
     const data = {
       fullName: this.state.fullName,
       mail: this.state.mail,
       password: this.state.password,
     }
+    if (data.fullName != '' || data.password != '') {
 
-    axios.post(BACKEND_URL + `users/signup`, data)
+      if (mailRegex.test(data.mail) === true) {
+        axios.post(BACKEND_URL + `users/signup`, data)
+          .then(res => {
+            //alert(res.data)
+            const { user, token } = res.data;
+            //alert(token);
+            AsyncStorage.setItem("user", JSON.stringify(user));
+            AsyncStorage.setItem("token", token);
+            setAuthToken(token);
+            this.props.navigation.push("Search")
+          })
+          .catch(err => {
+            Alert.alert("Inscription", err);
+            //console.log(err);
+          });
+      }
+      else if (numRegex.test(data.mail) === true) {
+        this.props.navigation.navigate('accountKitWebView', {
+          userData: data
+        })
+      }
+      else {
+        Alert.alert("Inscription", "Adresse mail ou téléphone erroné")
+      }
+    }
+    else {
+      Alert.alert("Inscription", "veuillez remplir les champs vides")
+    }
+  }
+
+  handleSignUpFB = async () => {
+    axios.post(BACKEND_URL + `users/signupFB`, this.state.userInfo)
       .then(res => {
-        //alert(res.data)
+        console.log(res.data)
         const { user, token } = res.data;
-        //alert(token);
-
+        console.log(token);
         AsyncStorage.setItem("user", JSON.stringify(user));
-        AsyncStorage.setItem("token", token);
-
+        AsyncStorage.setItem("token", JSON.stringify(token));
         setAuthToken(token);
-
         this.props.navigation.push("Search")
       })
       .catch(err => {
-        Alert.alert("Inscription", err + "Ce mail existe déja ");
+        alert(err);
         //console.log(err);
       });
-
-
+    //alert(await AsyncStorage.getItem('userId'))
+    //this.props.navigation.push("Search")
   }
 
   async logInFB() {
@@ -131,26 +154,60 @@ export default class Search extends React.Component {
         permissions,
         declinedPermissions,
       } = await Facebook.logInWithReadPermissionsAsync('1082525895266770', {
-        permissions: ['public_profile', 'email'],
+        permissions: ['public_profile'],
       });
       if (type === 'success') {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-
-        const id = ((await response.json()).id);
-        await AsyncStorage.setItem('loginType', 'facebook');
-        await AsyncStorage.setItem('userId', id);
-
-        //alert(await AsyncStorage.getItem('userId'))
-        this.props.navigation.push("Search")
+        //Alert.alert('Connecté!', `Salut ${(await response.json()).name}!`);
+        const userInfo = await response.json();
+        this.setState({ userInfo });
+        this.handleSignUpFB()
       } else {
-        // type === 'cancel'
+        alert("erreur")
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
     }
   }
+
+  async loginGoogle() {
+    try {
+      await GoogleSignIn.initAsync({
+        clientID: '178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v.apps.googleusercontent.com',
+      });
+      this.handleSignUpGoogle();
+    } catch ({ message }) {
+      alert('GoogleSignIn.initAsync(): ' + message);
+    }
+  }
+
+  handleSignUpGoogle = async () => {
+    try {
+      await GoogleSignIn.askForPlayServicesAsync();
+      const { type, user } = await GoogleSignIn.signInAsync();
+      if (type === 'success') {
+        const userInfo = await user
+        axios.post(BACKEND_URL + `users/signupGoogle`, userInfo)
+          .then(res => {
+            alert(res.data)
+            const { user, token } = res.data;
+            console.log(token);
+            AsyncStorage.setItem("user", JSON.stringify(user));
+            AsyncStorage.setItem("token", JSON.stringify(token));
+            setAuthToken(token);
+            this.props.navigation.push("Search")
+          })
+          .catch(err => {
+            alert(err);
+          });
+      }
+    } catch ({ message }) {
+      alert('login: Error:' + message);
+    }
+  };
 }
+
 const styles = StyleSheet.create({
   global: {
     flex: 1,

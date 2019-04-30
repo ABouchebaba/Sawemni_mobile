@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
-import Axios from 'axios';
+import axios from 'axios';
 import BACKEND_URL from "../consts";
 
 
@@ -18,7 +18,6 @@ export default class Addprice extends React.Component {
     super(props);
     this.state = {
       price: '0',
-
     };
   }
   IncrementItem = (nb) => {
@@ -50,7 +49,7 @@ export default class Addprice extends React.Component {
       product_id: product_id,
       price: price,
     };
-    Axios.post(BACKEND_URL + "users/addPrice", data)
+    axios.post(BACKEND_URL + "users/addPrice", data)
       .then(res => {
         //console.log(res.data);
         //alert(JSON.stringify(res.data));
@@ -67,7 +66,7 @@ export default class Addprice extends React.Component {
       <ImageBackground source={require('../assets/backgrounds/add_price.png')} style={styles.imgbck}>
         <View style={{ flex: 1 }}>
           <View style={styles.view1}>
-            <Ionicons name="ios-arrow-back" size={50} color="white" onPress={() => alert('back')} />
+            <Ionicons name="ios-arrow-back" size={50} color="white" onPress={() => this.props.navigation.goBack()} />
           </View>
           <View style={{ justifyContent: 'space-between', alignItems: 'stretch', height: hp('25%'), marginLeft: '13%', marginRight: '13%' }}>
             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -78,7 +77,7 @@ export default class Addprice extends React.Component {
             </View>
           </View>
           <View style={{ height: '55%', marginLeft: '13%', marginRight: '13%', justifyContent: 'space-between', alignItems: 'stretch' }}>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible' }}>
               <TouchableOpacity onPress={() => this.IncrementItem(1)}>
                 <Image source={require('../assets/price/1.png')} style={styles.number} />
               </TouchableOpacity>
@@ -89,7 +88,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/3.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' , zIndex: 1, overflow: 'visible' }}>
               <TouchableOpacity onPress={() => this.IncrementItem(4)}>
                 <Image source={require('../assets/price/4.png')} style={styles.number} />
               </TouchableOpacity>
@@ -100,7 +99,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/6.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible'  }}>
               <TouchableOpacity onPress={() => this.IncrementItem(7)}>
                 <Image source={require('../assets/price/7.png')} style={styles.number} />
               </TouchableOpacity>
@@ -111,7 +110,7 @@ export default class Addprice extends React.Component {
                 <Image source={require('../assets/price/9.png')} style={styles.number} />
               </TouchableOpacity>
             </View>
-            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', zIndex: 1, overflow: 'visible'  }}>
               <TouchableOpacity onPress={() => this.DecreaseItem()}
                 onLongPress={() => this.setState({ price: '0' })}
               >

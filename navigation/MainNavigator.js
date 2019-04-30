@@ -13,6 +13,8 @@ import Signin from '../screens/Signin'
 import barcodeScanner from '../screens/barcodeScanner'
 import priceAdded from '../screens/priceAdded'
 import nameSearch from '../screens/nameSearch'
+import accountKitWebView from '../screens/accountKitWebView'
+import mobileReset from '../screens/mobileReset'
 
 const AppStack = createStackNavigator(
     {
@@ -31,9 +33,11 @@ const AppStack = createStackNavigator(
 
 const AuthStack = createStackNavigator(
     {
-        Signin: Signin,
+        HomeScreen: HomeScreen,
         Signup: Signup,
-        HomeScreen: HomeScreen
+        accountKitWebView: accountKitWebView,
+        Signin: Signin,
+        mobileReset: mobileReset
     },
     {
         initialRouteName: 'HomeScreen',
@@ -47,7 +51,6 @@ let getStack = async () => {
 
 export default createAppContainer(createSwitchNavigator(
     {
-        Auth: AuthStack,
         App: AppStack,
-
+        Auth: AuthStack,
     }))

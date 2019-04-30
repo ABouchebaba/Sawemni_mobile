@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "178623655885",
+    "firebase_url": "https://sawemliauth.firebaseio.com",
+    "project_id": "sawemliauth",
+    "storage_bucket": "sawemliauth.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178623655885:android:0f254d05cc81476c",
+        "android_client_info": {
+          "package_name": "com.sawemli.sawemli"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178623655885-icebcu606p68haja8pgp6l463r20r3hm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT-XEestoAT-wYhJUFyxMrsLoFlgZdGk0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "178623655885-icebcu606p68haja8pgp6l463r20r3hm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sawemli.sawemli"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

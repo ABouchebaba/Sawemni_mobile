@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo";
+import BACKEND_URL from "../consts";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default class Profile extends React.Component {
   render() {
@@ -38,9 +40,9 @@ export default class Profile extends React.Component {
             }}
           >
             <Image
-              //require("../assets/ass/kitkat.jpg")
+              
 
-              source={{ uri: "http://6fb8b181.ngrok.io/Sawemni_api/" + product.imgURL }}
+              source={(product.imgURL) ? ({uri : BACKEND_URL + product.imgURL}) :  require("../assets/groceries.png")}
               style={styles.image}
             />
           </View>
@@ -73,8 +75,8 @@ export default class Profile extends React.Component {
               }}
             >
               <Text style={styles.text2}>{product.category}</Text>
-              <Text style={styles.text2}>{product.producer}</Text>
-              <Text style={styles.text2}>{product.barcode}</Text>
+              <Text style={styles.text3}>{product.producer}</Text>
+              <Text style={styles.text4}>{product.barcode}</Text>
             </View>
             <View
               style={{
@@ -182,10 +184,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white"
   },
+  text3: {
+    fontSize: 18,
+    color: "white",
+    fontWeight: '400',
+  },
+  text4: {
+    fontSize: 15,
+    color: "white",
+    fontStyle: 'italic',
+    fontWeight: '300'
+  },
   image: {
-    width: '50%',
-    height: 150,
-    resizeMode: "cover",
+    width: wp(80),
+    height: hp(30),
+    resizeMode: "contain",
     //aspectRatio: 1 / 2,
     borderRadius: 20
   },
