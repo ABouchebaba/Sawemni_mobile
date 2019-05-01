@@ -32,8 +32,7 @@
         "googleSignIn": {
           "reservedClientId": "com.googleusercontent.apps.178623655885-6nhu0bstprmb5ln57nmk65m6eo3gko5v"
         }
-      },
-      "icon":"./assets/icon.png"
+      }
     },
     "android": {
       "package": "com.sawemli.sawemli",

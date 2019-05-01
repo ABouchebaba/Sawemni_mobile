@@ -23,7 +23,7 @@ export default class Search extends React.Component {
       password: this.state.password,
     }
     if (data.mail == '' || data.password == '') {
-      alert("kemel ekteb")
+      Alert.alert("Erreur","veuillez compléter les informations manquantes")
       return
     }
     axios.post(BACKEND_URL + "users/login", data)

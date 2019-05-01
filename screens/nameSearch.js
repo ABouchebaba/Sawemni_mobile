@@ -36,12 +36,8 @@ export default class nameSearch extends Component {
   }
 
   GetListViewItem(id) {
-    //alert(`http://6fb8b181.ngrok.io/Sawemni_api/products/${id}`);
     axios.get(BACKEND_URL + `products/${id}`)
       .then(res => {
-        //console.log(res.data)
-        //this.setState({ spinner: false });
-        //console.log(res.data)
         this.props.navigation.navigate('Profile', { data: res.data });
       })
       .catch(err => {
