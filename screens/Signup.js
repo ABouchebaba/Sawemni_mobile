@@ -87,28 +87,81 @@ export default class Search extends React.Component {
   }
 
   handleSignUp = async () => {
-    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    let numRegex = /^[0][0567]{1}[0-9]{8}$/
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
+    let numRegex = /^[0][0567]{1}[0-9]{8}$/;
+
     const data = {
       fullName: this.state.fullName,
       mail: this.state.mail,
       password: this.state.password,
     }
-    if (data.fullName != '' || data.password != '') {
+
+    if (data.fullName == '' || data.mail == '' || data.password == '') {
+      return alert("Veuillez renseigner tout les champs");
+    }
+
+    if (data.password.length < 8) {
+      return Alert.alert("Inscription", "Le mot de passe doit comporter au moins 8 caractéres");
+    }
+
+    let isMail = mailRegex.test(data.mail);
+    let isNum = numRegex.test(data.mail);
+
+    if (!isMail && !isNum) {
+      return alert("Veuillez entrer une adresse mail où un numéro de téléphone valide");
+    }
+
+    // traitement du mail
+    if (isMail) {
+
+      axios.post(BACKEND_URL + `users/signup`, data)
+        .then(res => {
+
+          if (res.data.error !== undefined) {
+            Alert.alert("Inscription", res.data.error);
+            return;
+          }
+
+          Alert.alert("Inscription", "Un Email a été envoyé à l'adresse spécifiée, Veuillez le consulter pour pouvoir vérifier vos coordonnées.");
+          this.props.navigation.push("Signin");
+        })
+        .catch(err => {
+          Alert.alert("Erreur", "Veuillez vérifier que vous étes bien connecté(e) à internet");
+          //console.log(err);tgyhujiedstgyhuj
+        });
+
+      return;
+    }
+
+    // traitement du num de tel
+    if (isNum) {
+      this.props.navigation.navigate('accountKitWebView', {
+        userData: data
+      })
+      //return;
+    }
+
+    /*if (data.fullName != '' && data.password != '') {
 
       if (mailRegex.test(data.mail) === true) {
         axios.post(BACKEND_URL + `users/signup`, data)
           .then(res => {
+
+            if (res.data.message != undefined) {
+              Alert.alert("Erreur", res.data.message);
+              return;
+            }
             //alert(res.data)
-            const { user, token } = res.data;
+            //const { user, token } = res.data;
             //alert(token);
-            AsyncStorage.setItem("user", JSON.stringify(user));
-            AsyncStorage.setItem("token", token);
-            setAuthToken(token);
-            this.props.navigation.push("Search")
+            //AsyncStorage.setItem("user", JSON.stringify(user));
+            //AsyncStorage.setItem("token", token);
+            //setAuthToken(token);
+            Alert.alert("Vérification", "Un Email a été envoyé à l'adresse spécifiée, Veuillez le consulter pour pouvoir vérifier vos coordonnées.");
+            this.props.navigation.push("Signin");
           })
           .catch(err => {
-            Alert.alert("Inscription", err);
+            Alert.alert("Erreur", "Veuillez vérifier que vous étes bien connecté(e) à internet");
             //console.log(err);
           });
       }
@@ -123,7 +176,7 @@ export default class Search extends React.Component {
     }
     else {
       Alert.alert("Inscription", "veuillez remplir les champs vides")
-    }
+    }*/
   }
 
   handleSignUpFB = async () => {

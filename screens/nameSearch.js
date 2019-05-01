@@ -16,7 +16,7 @@ export default class nameSearch extends Component {
   }
 
   async componentDidMount() {
-      axios.get(BACKEND_URL + 'userProducts/')
+    axios.get(BACKEND_URL + 'userProducts/')
       .then(res => {
         let responseJson = res.data
         console.log(responseJson)
@@ -69,9 +69,9 @@ export default class nameSearch extends Component {
           height: .5,
           width: "80%",
           backgroundColor: "black",
-          alignSelf:'center',
-          justifyContent:'center',
-          alignContent:'center'
+          alignSelf: 'center',
+          justifyContent: 'center',
+          alignContent: 'center'
         }}
       />
     );
@@ -86,15 +86,15 @@ export default class nameSearch extends Component {
       );
     }
     return (
-      <ImageBackground 
-      source={require('../assets/backgrounds/add_price.png')}
-      style={styles.MainContainer}>
-      <Searchbar
-        style={{marginRight:'10%', marginLeft:'10%'}}
-        placeholder="Pain complet"
-        onChangeText={(text) => this.SearchFilterFunction(text)}
-        value={this.state.text}
-      />
+      <ImageBackground
+        source={require('../assets/backgrounds/add_price.png')}
+        style={styles.MainContainer}>
+        <Searchbar
+          style={{ marginRight: '10%', marginLeft: '10%' }}
+          placeholder="Pain complet"
+          onChangeText={(text) => this.SearchFilterFunction(text)}
+          value={this.state.text}
+        />
         <ListView
           dataSource={this.state.dataSource}
           renderSeparator={this.ListViewItemSeparator}
@@ -102,7 +102,7 @@ export default class nameSearch extends Component {
             <Text style={styles.rowViewContainer}
               onPress={this.GetListViewItem.bind(this, rowData.id)} >
               {rowData.PName}
-               {/* ــ {rowData.category} */}
+              {/* ــ {rowData.category} */}
             </Text>}
           enableEmptySections={true}
           style={styles.list}
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   rowViewContainer: {
-    color:'gray',
+    color: 'gray',
     fontSize: 17,
     padding: 10
   },
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginTop: '5%',
     borderRadius: 5,
-    marginLeft:'10%',
+    marginLeft: '10%',
     marginRight: '10%',
     elevation: 8,
     shadowOffset: { width: 5, height: 5 },
