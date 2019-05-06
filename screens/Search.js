@@ -23,7 +23,7 @@ export default class Search extends React.Component {
   }
   render() {
     return (
-      <ImageBackground source={require('../assets/Ui.png')} style={styles.container} >
+      <ImageBackground source={require('../assets/backgrounds/Ui.png')} style={styles.container} >
         <View style={styles.views}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('barcodeScanner')}>
