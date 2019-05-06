@@ -8,14 +8,14 @@ import {
   Image,
   AsyncStorage
 } from 'react-native';
-import {Button} from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import axios from "axios";
 import setAuthToken from '../utils/setAuthToken';
 
 export default class Search extends React.Component {
 
   componentDidMount = async () => {
-    
+
     let token = await AsyncStorage.getItem("token");
     setAuthToken(token)
     console.log("axios = " + axios.defaults.headers.common["authorization"] + " fin");
@@ -34,14 +34,14 @@ export default class Search extends React.Component {
               <Text style={{ fontSize: 25 }}>Scanner le code-barres</Text>
             </View>
           </TouchableOpacity>
-          <Button 
-          mode="contained" 
-          onPress={() => this.logout()}
-          color = "#ff4c3d"
-          style={{zIndex:2}}
+          <Button
+            mode="contained"
+            onPress={() => this.logout()}
+            color="#ff4c3d"
+            style={{ zIndex: 2 }}
           >Se déconnecter</Button>
         </View>
-        
+
         <View style={styles.views}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('nameSearch')}>
             <View style={styles.views}>
@@ -57,7 +57,7 @@ export default class Search extends React.Component {
   }
   logout = async () => {
     await AsyncStorage.clear()
-    setAuthToken()
+    setAuthToken(false) //444sdfgfd
     this.props.navigation.push("HomeScreen")
   }
 }

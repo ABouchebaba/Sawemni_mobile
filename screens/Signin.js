@@ -17,19 +17,29 @@ export default class Search extends React.Component {
   };
 
   handleSignin = () => {
-  
+
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
+
     const data = {
       mail: this.state.mail,
       password: this.state.password,
     }
+
     if (data.mail == '' || data.password == '') {
-      Alert.alert("Erreur","veuillez compléter les informations manquantes")
-      return
+      return Alert.alert("Erreur","Veuillez renseigner tout les champs");
     }
+    if (mailRegex.test(data.mail) === false) {
+      return Alert.alert("Erreur","Veuillez entrer une adresse mail correcte");
+    }
+
     axios.post(BACKEND_URL + "users/login", data)
       .then(res => {
         //Alert.alert(JSON.stringify(res.data))
         console.log(res.data);
+
+        if (res.data.error !== undefined) {
+          return Alert.alert("Identification", res.data.error);
+        }
 
         const { user, token } = res.data;
 
@@ -37,28 +47,66 @@ export default class Search extends React.Component {
         AsyncStorage.setItem("token", token);
 
         setAuthToken(token);
-        //sdsdfgdfgdfgf
+        //sdsdfgdfgdfgfsdgsg
 
         this.props.navigation.push("Search")
 
       })
       .catch(err => {
-        Alert.alert("Erreur", "Adresse mail ou mot de passe incorrecte")
+        Alert.alert("Erreur", "Veuillez vérifier que vous étes bien connecté(e) à internet")
       })
-    
+
 
   }
 
   passwordReset = () => {
 
-    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+    let mailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,5})+$/;
     let numRegex = /^[0][0567]{1}[0-9]{8}$/
 
-    if(this.state.mail != ''){
-      if(mailRegex.test(this.state.mail) === true) {
+    let data = {
+      mail: this.state.mail
+    }
+
+    if (data.mail === '') {
+      return Alert.alert("Mot de passe oublié", "Veuillez renseigner votre adresse mail ou n° de téléphone");
+    }
+
+    let isMail = mailRegex.test(data.mail);
+    let isNum = numRegex.test(data.mail);
+
+    if (!isMail && !isNum) {
+      return alert("Veuillez entrer une adresse mail où un numéro de téléphone valide");
+    }
+
+    if (isMail) {
+      axios.post(BACKEND_URL + "passwordReset", data)
+        .then(res => {
+          if (res.data.error !== undefined) {
+            return alert(res.data.error);
+          }
+
+          alert(JSON.stringify(res.data))
+
+        })
+        .catch(err => {
+          return alert(err);//"Une erreur réseau est survenue, veuillez vérifier que vous étes bien conneté(e) à internet");
+        })
+    }
+
+    if (isNum) {
+      this.props.navigation.navigate('mobileReset', {
+        mobile: this.state.mail
+      })
+      return;
+    }
+
+
+    /*if (this.state.mail != '') {
+      if (mailRegex.test(this.state.mail) === true) {
 
         // mail reset logig
-      
+
       }
       else if (numRegex.test(this.state.mail) === true) {
         this.props.navigation.navigate('mobileReset', {
@@ -66,32 +114,32 @@ export default class Search extends React.Component {
         })
       }
       else {
-        Alert.alert("","Adresse mail ou numéro de téléphone n'existe pas")
+        Alert.alert("", "Adresse mail ou numéro de téléphone n'existe pas")
       }
     }
     else {
-      Alert.alert("Mot de passe oublié","veuillez entrer votre Adresse mail ou numéro de téléphone")
-    }
+      Alert.alert("Mot de passe oublié", "veuillez entrer votre Adresse mail ou numéro de téléphone")
+    }*/
   }
 
   handleSignUpFB = async () => {
     console.log(this.state.userInfo)
     axios.post(BACKEND_URL + `users/signupFB`, this.state.userInfo)
-    .then(res => {
-      console.log(res.data)
-      const { user, token } = res.data;
-      console.log(typeof(token));
-      AsyncStorage.setItem("user", JSON.stringify(user));
-      AsyncStorage.setItem("token", token);
-      setAuthToken(token);
-      this.props.navigation.push("Search")
-    })
-    .catch(err => {
-      alert(err);
-      //console.log(err);
-    });
-      //alert(await AsyncStorage.getItem('userId'))
-      //this.props.navigation.push("Search")
+      .then(res => {
+        console.log(res.data)
+        const { user, token } = res.data;
+        console.log(typeof (token));
+        AsyncStorage.setItem("user", JSON.stringify(user));
+        AsyncStorage.setItem("token", token);
+        setAuthToken(token);
+        this.props.navigation.push("Search")
+      })
+      .catch(err => {
+        alert(err);
+        //console.log(err);
+      });
+    //alert(await AsyncStorage.getItem('userId'))
+    //this.props.navigation.push("Search")
   }
 
   async logInFB() {
@@ -127,7 +175,7 @@ export default class Search extends React.Component {
       });
       this.handleSignUpGoogle();
     } catch ({ message }) {
-        alert('GoogleSignIn.initAsync(): ' + message);
+      alert('GoogleSignIn.initAsync(): ' + message);
     }
   }
 
@@ -138,18 +186,18 @@ export default class Search extends React.Component {
       if (type === 'success') {
         const userInfo = await user
         axios.post(BACKEND_URL + `users/signupGoogle`, userInfo)
-        .then(res => {
-          alert(res.data)
-          const { user, token } = res.data;
-          console.log(token);
-          AsyncStorage.setItem("user", JSON.stringify(user));
-          AsyncStorage.setItem("token", JSON.stringify(token));
-          setAuthToken(token);
-          this.props.navigation.push("Search")
-        })
-        .catch(err => {
-          alert(err);
-        });
+          .then(res => {
+            alert(res.data)
+            const { user, token } = res.data;
+            console.log(token);
+            AsyncStorage.setItem("user", JSON.stringify(user));
+            AsyncStorage.setItem("token", JSON.stringify(token));
+            setAuthToken(token);
+            this.props.navigation.push("Search")
+          })
+          .catch(err => {
+            alert(err);
+          });
       }
     } catch ({ message }) {
       alert('login: Error:' + message);

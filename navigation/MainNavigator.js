@@ -32,7 +32,7 @@ const AppStack = createStackNavigator(
 );
 
 const AuthStack = createStackNavigator(
-    { 
+    {
         HomeScreen: HomeScreen,
         Signup: Signup,
         accountKitWebView: accountKitWebView,
@@ -44,6 +44,10 @@ const AuthStack = createStackNavigator(
         headerMode: 'none'
     }
 );
+
+let getStack = async () => {
+
+}
 
 export default createAppContainer(createSwitchNavigator(
     {
