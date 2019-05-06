@@ -18,12 +18,12 @@ export default class Search extends React.Component {
 
     let token = await AsyncStorage.getItem("token");
     setAuthToken(token)
-    console.log("axios = " + axios.defaults.headers.common["authorization"] + " fin");
+    console.log("axios = " + axios.defaults.headers.common["Authorization"] + " fin");
     //alert(user.username);
   }
   render() {
     return (
-      <ImageBackground source={require('../assets/backgrounds/Ui.png')} style={styles.container} >
+      <ImageBackground source={require('../assets/backgrounds/search.png')} style={styles.container} >
         <View style={styles.views}>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('barcodeScanner')}>

@@ -45,12 +45,8 @@ const AuthStack = createStackNavigator(
     }
 );
 
-let getStack = async () => {
-
-}
-
 export default createAppContainer(createSwitchNavigator(
     {
-        App: AppStack,
         Auth: AuthStack,
+        App: AppStack,
     }))
