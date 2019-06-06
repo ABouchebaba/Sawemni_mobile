@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import MainNavigator from './navigation/MainNavigator'
-import Sentry from 'sentry-expo';
+//import Sentry from 'sentry-expo';
 // import { SentrySeverity, SentryLog } from 'react-native-sentry';
 
 export default class App extends React.Component {
