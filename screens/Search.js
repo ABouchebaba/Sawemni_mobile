@@ -19,7 +19,6 @@ export default class Search extends React.Component {
     let token = await AsyncStorage.getItem("token");
     setAuthToken(token)
     console.log("axios = " + axios.defaults.headers.common["Authorization"] + " fin");
-    //alert(user.username);
   }
   render() {
     return (

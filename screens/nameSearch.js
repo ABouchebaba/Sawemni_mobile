@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, ImageBa
 import axios from "axios";
 import { Searchbar } from 'react-native-paper';
 import BACKEND_URL from "../consts";
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export default class nameSearch extends Component {
 
@@ -76,8 +77,8 @@ export default class nameSearch extends Component {
   render() {
     if (this.state.isLoading) {
       return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <ActivityIndicator />
+        <View style={{ flex: 1, justifyContent:'center', flexDirection: 'row', justifyContent: 'space-around', padding: 10 }}>
+          <ActivityIndicator size="large" color="#F09214" />
         </View>
       );
     }

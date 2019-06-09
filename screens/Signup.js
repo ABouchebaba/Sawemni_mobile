@@ -186,7 +186,7 @@ export default class Search extends React.Component {
         const { user, token } = res.data;
         console.log(token);
         AsyncStorage.setItem("user", JSON.stringify(user));
-        AsyncStorage.setItem("token", JSON.stringify(token));
+        AsyncStorage.setItem("token", token);
         setAuthToken(token);
         this.props.navigation.push("Search")
       })
@@ -243,7 +243,7 @@ export default class Search extends React.Component {
         const userInfo = await user
         axios.post(BACKEND_URL + `users/signupGoogle`, userInfo)
           .then(res => {
-            alert(res.data)
+            //alert(res.data)
             const { user, token } = res.data;
             console.log(token);
             AsyncStorage.setItem("user", JSON.stringify(user));
