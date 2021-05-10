@@ -2944,8 +2944,8 @@ home-or-tmp@^2.0.0:
     os-tmpdir "^1.0.1"
 
 hosted-git-info@^2.1.4:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
 
 http-errors@~1.6.2:
   version "1.6.3"
@@ -5734,9 +5734,10 @@ xcode@^0.9.1:
     simple-plist "^0.2.1"
     uuid "3.0.1"
 
-"xcode@git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b":
+"xcode@https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b":
   version "1.0.1-dev"
-  resolved "git+https://github.com/apache/cordova-node-xcode.git#e7646f0680d509b590b839e567c217590451505b"
+  uid e7646f0680d509b590b839e567c217590451505b
+  resolved "https://github.com/apache/cordova-node-xcode#e7646f0680d509b590b839e567c217590451505b"
   dependencies:
     simple-plist "^0.2.1"
     uuid "3.0.1"
